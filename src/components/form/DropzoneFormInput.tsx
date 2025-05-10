@@ -11,16 +11,22 @@ const DropzoneFormInput = ({
   helpText,
   iconProps,
   showPreview,
+  maxFiles = 5,
   text,
   textClassName,
   onFileUpload,
+  onRemoveFile
 }: DropzoneFormInputProps) => {
   const { selectedFiles, handleAcceptedFiles, removeFile } = useFileUploader(showPreview)
   return (
     <>
       {label && <FormLabel className={labelClassName}>{label}</FormLabel>}
 
-      <Dropzone onDrop={(acceptedFiles) => handleAcceptedFiles(acceptedFiles, onFileUpload)} maxFiles={5}>
+      <Dropzone
+        onDrop={(acceptedFiles) => handleAcceptedFiles(acceptedFiles, onFileUpload)}
+        maxFiles={maxFiles}
+        disabled={selectedFiles.length == maxFiles}
+      >
         {({ getRootProps, getInputProps }) => (
           <>
             <div className="dropzone dropzone-custom">
@@ -38,7 +44,7 @@ const DropzoneFormInput = ({
                     <div className="dz-image-preview dz-success dz-complete">
                       <div className="border rounded">
                         <div className="d-flex align-items-center p-2">
-                          <div className="flex-shrink-0 me-3">
+                          {/* <div className="flex-shrink-0 me-3">
                             <div className="avatar-sm bg-light rounded">
                               {file.preview ? (
                                 <img alt={file.path ?? ''} height={36} width={36} src={file.preview} className="img-fluid rounded d-block" />
@@ -48,7 +54,7 @@ const DropzoneFormInput = ({
                                 </div>
                               )}
                             </div>
-                          </div>
+                          </div> */}
                           <div className="flex-grow-1">
                             <div className="pt-1">
                               <h5 className="fs-14 mb-1" data-dz-name>
@@ -63,7 +69,11 @@ const DropzoneFormInput = ({
                           </div>
                           {removeFile && (
                             <div className="flex-shrink-0 ms-3">
-                              <button onClick={() => removeFile(file)} data-dz-remove className="btn btn-sm btn-danger">
+                              <button onClick={() => {
+                                removeFile(file)
+                                const fileIndex = selectedFiles.indexOf(file)
+                                onRemoveFile?.(fileIndex)
+                              }} data-dz-remove className="btn btn-sm btn-danger">
                                 Delete
                               </button>
                             </div>

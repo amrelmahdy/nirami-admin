@@ -9,74 +9,94 @@ export const MENU_ITEMS: MenuItemType[] = [
   {
     key: 'dashboard',
     icon: 'solar:home-2-broken',
-    label: 'Dashboard',
+    label: 'لوحة التحكم',
     badge: {
       text: '9+',
       variant: 'success',
     },
     url: '/dashboard/analytics',
   },
+
+
+  // {
+  //   key: 'apps-calendar',
+  //   icon: 'solar:calendar-broken',
+  //   label: 'Calendar',
+  //   children: [
+  //     {
+  //       key: 'calendar-schedule',
+  //       label: 'Schedule',
+  //       url: '/calendar/schedule',
+  //       parentKey: 'apps-calendar',
+  //     },
+  //     {
+  //       key: 'calendar-integration',
+  //       label: 'Integration',
+  //       url: '/calendar/integration',
+  //       parentKey: 'apps-calendar',
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: 'apps-todo',
+  //   icon: 'solar:list-heart-minimalistic-broken',
+  //   label: 'Todo',
+  //   url: '/apps/todo',
+  // },
+
   {
     key: 'apps',
-    label: 'APPS',
+    label: 'المتجر الالكتروني',
     isTitle: true,
   },
   {
-    key: 'apps-chat',
-    icon: 'solar:chat-round-call-broken',
-    label: 'Chat',
-    url: '/apps/chat',
-  },
-  {
-    key: 'apps-email',
-    icon: 'solar:letter-broken',
-    label: 'Email',
-    url: '/apps/email',
-  },
-  {
-    key: 'apps-calendar',
-    icon: 'solar:calendar-broken',
-    label: 'Calendar',
-    children: [
-      {
-        key: 'calendar-schedule',
-        label: 'Schedule',
-        url: '/calendar/schedule',
-        parentKey: 'apps-calendar',
-      },
-      {
-        key: 'calendar-integration',
-        label: 'Integration',
-        url: '/calendar/integration',
-        parentKey: 'apps-calendar',
-      },
-    ],
-  },
-  {
-    key: 'apps-todo',
-    icon: 'solar:list-heart-minimalistic-broken',
-    label: 'Todo',
-    url: '/apps/todo',
-  },
-
-  {
     key: 'apps-invoices',
-    icon: 'solar:bill-list-broken',
-    label: 'Invoices',
+    icon: 'line-md:grid-3',
+    label: 'المنتجات',
     children: [
       {
-        key: 'invoices',
-        label: 'Invoices',
-        url: '/invoices',
+        key: 'products',
+        label: 'المنتجات',
+        url: '/products',
+        parentKey: 'apps-invoices',
+      },
+      {
+        key: 'departments',
+        label: 'الأقسام',
+        url: '/departments',
+        parentKey: 'apps-invoices',
+      },
+      {
+        key: 'categories',
+        label: 'الفئات',
+        url: '/categories',
+        parentKey: 'apps-invoices',
+      },
+      {
+        key: 'groups',
+        label: 'المجموعات',
+        url: '/groups',
         parentKey: 'apps-invoices',
       },
       {
         key: 'invoices-details',
-        label: 'Invoices Details',
+        label: 'المجموعات',
         url: '/invoices/RB6985',
         parentKey: 'apps-invoices',
       },
     ],
+  },
+  {
+    key: 'apps-email',
+    icon: 'solar:cart-3-outline',
+    label: 'الطلبات',
+    url: '/apps/email',
+  },
+  {
+    key: 'apps-email',
+    icon: 'solar:letter-broken',
+    label: 'العروض',
+    url: '/apps/email',
   },
   {
     key: 'custom',
@@ -84,106 +104,118 @@ export const MENU_ITEMS: MenuItemType[] = [
     isTitle: true,
   },
   {
-    key: 'pages',
-    label: 'Pages',
-    isTitle: false,
-    icon: 'solar:folder-with-files-broken',
-    children: [
-      {
-        key: 'page-welcome',
-        label: 'Welcome',
-        url: '/pages/welcome',
-        parentKey: 'pages',
-      },
-      {
-        key: 'page-faqs',
-        label: 'FAQs',
-        url: '/pages/faqs',
-        parentKey: 'pages',
-      },
-      {
-        key: 'page-coming-soon',
-        label: 'Coming Soon',
-        url: '/coming-soon',
-        parentKey: 'pages',
-        target: '_blank',
-      },
-      {
-        key: 'page-timeline',
-        label: 'Timeline',
-        url: '/pages/timeline',
-        parentKey: 'pages',
-      },
-      {
-        key: 'page-pricing',
-        label: 'Pricing',
-        url: '/pages/pricing',
-        parentKey: 'pages',
-      },
-      {
-        key: 'page-maintenance',
-        label: 'Maintenance',
-        url: '/maintenance',
-        parentKey: 'pages',
-        target: '_blank',
-      },
-      {
-        key: 'page-404-error',
-        label: '404 Error',
-        url: '/error-404',
-        parentKey: 'pages',
-        target: '_blank',
-      },
-      {
-        key: 'page-error-404-alt',
-        label: 'Error 404 Alt',
-        url: '/pages/error-404-alt',
-        parentKey: 'pages',
-      },
-    ],
+    key: 'apps-chat',
+    icon: 'solar:users-group-rounded-broken',
+    label: 'قائمة العملاء',
+    url: '/apps/chat',
   },
   {
-    key: 'page-authentication',
-    label: 'Authentication',
-    isTitle: false,
-    icon: 'solar:lock-password-unlocked-broken',
-    children: [
-      {
-        key: 'sign-in',
-        label: 'Sign In',
-        url: '/auth/sign-in',
-        parentKey: 'page-authentication',
-      },
-      {
-        key: 'signup',
-        label: 'Sign Up',
-        url: '/auth/sign-up',
-        parentKey: 'page-authentication',
-      },
-      {
-        key: 'reset-pass',
-        label: 'Reset Password',
-        url: '/auth/reset-pass',
-        parentKey: 'page-authentication',
-      },
-      {
-        key: 'lock-screen',
-        label: 'Lock Screen',
-        url: '/auth/lock-screen',
-        parentKey: 'page-authentication',
-      },
-    ],
+    key: 'apps-chat',
+    icon: 'solar:users-group-rounded-bold',
+    label: 'قائمة المديرين',
+    url: '/apps/chat',
   },
-  {
-    key: 'widgets',
-    icon: 'solar:gift-broken',
-    label: 'Widgets',
-    badge: {
-      text: 'Hot',
-      variant: 'danger',
-    },
-    url: '/widgets',
-  },
+  // {
+  //   key: 'pages',
+  //   label: 'Pages',
+  //   isTitle: false,
+  //   icon: 'solar:folder-with-files-broken',
+  //   children: [
+  //     {
+  //       key: 'page-welcome',
+  //       label: 'Welcome',
+  //       url: '/pages/welcome',
+  //       parentKey: 'pages',
+  //     },
+  //     {
+  //       key: 'page-faqs',
+  //       label: 'FAQs',
+  //       url: '/pages/faqs',
+  //       parentKey: 'pages',
+  //     },
+  //     {
+  //       key: 'page-coming-soon',
+  //       label: 'Coming Soon',
+  //       url: '/coming-soon',
+  //       parentKey: 'pages',
+  //       target: '_blank',
+  //     },
+  //     {
+  //       key: 'page-timeline',
+  //       label: 'Timeline',
+  //       url: '/pages/timeline',
+  //       parentKey: 'pages',
+  //     },
+  //     {
+  //       key: 'page-pricing',
+  //       label: 'Pricing',
+  //       url: '/pages/pricing',
+  //       parentKey: 'pages',
+  //     },
+  //     {
+  //       key: 'page-maintenance',
+  //       label: 'Maintenance',
+  //       url: '/maintenance',
+  //       parentKey: 'pages',
+  //       target: '_blank',
+  //     },
+  //     {
+  //       key: 'page-404-error',
+  //       label: '404 Error',
+  //       url: '/error-404',
+  //       parentKey: 'pages',
+  //       target: '_blank',
+  //     },
+  //     {
+  //       key: 'page-error-404-alt',
+  //       label: 'Error 404 Alt',
+  //       url: '/pages/error-404-alt',
+  //       parentKey: 'pages',
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: 'page-authentication',
+  //   label: 'Authentication',
+  //   isTitle: false,
+  //   icon: 'solar:lock-password-unlocked-broken',
+  //   children: [
+  //     {
+  //       key: 'sign-in',
+  //       label: 'Sign In',
+  //       url: '/auth/sign-in',
+  //       parentKey: 'page-authentication',
+  //     },
+  //     {
+  //       key: 'signup',
+  //       label: 'Sign Up',
+  //       url: '/auth/sign-up',
+  //       parentKey: 'page-authentication',
+  //     },
+  //     {
+  //       key: 'reset-pass',
+  //       label: 'Reset Password',
+  //       url: '/auth/reset-pass',
+  //       parentKey: 'page-authentication',
+  //     },
+  //     {
+  //       key: 'lock-screen',
+  //       label: 'Lock Screen',
+  //       url: '/auth/lock-screen',
+  //       parentKey: 'page-authentication',
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: 'widgets',
+  //   icon: 'solar:gift-broken',
+  //   label: 'Widgets',
+  //   badge: {
+  //     text: 'Hot',
+  //     variant: 'danger',
+  //   },
+  //   url: '/widgets',
+  // },
   {
     key: 'components',
     label: 'COMPONENTS',
@@ -573,25 +605,25 @@ export const MENU_ITEMS: MenuItemType[] = [
       },
     ],
   },
-  {
-    key: 'maps',
-    icon: 'solar:streets-map-point-broken',
-    label: 'Maps',
-    children: [
-      {
-        key: 'maps-google',
-        label: 'Google Maps',
-        url: '/maps/google',
-        parentKey: 'maps',
-      },
-      {
-        key: 'maps-vector',
-        label: 'Vector Maps',
-        url: '/maps/vector',
-        parentKey: 'maps',
-      },
-    ],
-  },
+  // {
+  //   key: 'maps',
+  //   icon: 'solar:streets-map-point-broken',
+  //   label: 'Maps',
+  //   children: [
+  //     {
+  //       key: 'maps-google',
+  //       label: 'Google Maps',
+  //       url: '/maps/google',
+  //       parentKey: 'maps',
+  //     },
+  //     {
+  //       key: 'maps-vector',
+  //       label: 'Vector Maps',
+  //       url: '/maps/vector',
+  //       parentKey: 'maps',
+  //     },
+  //   ],
+  // },
   {
     key: 'badge-menu',
     icon: 'solar:football-broken',
@@ -601,34 +633,34 @@ export const MENU_ITEMS: MenuItemType[] = [
       variant: 'primary',
     },
   },
-  {
-    key: 'menuitem',
-    icon: 'solar:share-broken',
-    label: 'Menu Item',
-    children: [
-      {
-        key: 'menu-item-1',
-        label: 'Menu Item 1',
-        parentKey: 'menuitem',
-      },
-      {
-        key: 'menu-item-2',
-        label: 'Menu Item 2',
-        parentKey: 'menuitem',
-        children: [
-          {
-            key: 'menu-sub-item',
-            label: 'Menu Sub Item',
-            parentKey: 'menu-item-2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: 'disabled-item',
-    icon: 'solar:dislike-broken',
-    label: 'Disabled Item',
-    isDisabled: true,
-  },
+  // {
+  //   key: 'menuitem',
+  //   icon: 'solar:share-broken',
+  //   label: 'Menu Item',
+  //   children: [
+  //     {
+  //       key: 'menu-item-1',
+  //       label: 'Menu Item 1',
+  //       parentKey: 'menuitem',
+  //     },
+  //     {
+  //       key: 'menu-item-2',
+  //       label: 'Menu Item 2',
+  //       parentKey: 'menuitem',
+  //       children: [
+  //         {
+  //           key: 'menu-sub-item',
+  //           label: 'Menu Sub Item',
+  //           parentKey: 'menu-item-2',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: 'disabled-item',
+  //   icon: 'solar:dislike-broken',
+  //   label: 'Disabled Item',
+  //   isDisabled: true,
+  // },
 ]

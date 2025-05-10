@@ -6,6 +6,7 @@ import type { ReactNode } from 'react'
 import { type Control, type FieldPath, type FieldValues } from 'react-hook-form'
 
 import type { OffcanvasControlType } from './context'
+import { number } from 'yup'
 
 export type ChildrenType = Readonly<{ children: ReactNode }>
 
@@ -70,10 +71,12 @@ export type DropzoneFormInputProps = {
   labelClassName?: string
   helpText?: ReactNode | string
   showPreview?: boolean
+  maxFiles?: number,
   iconProps?: IconProps
   text?: string
   textClassName?: string
-  onFileUpload?: (files: UploadFileType[]) => void
+  onFileUpload?: (files: UploadFileType[]) => void,
+  onRemoveFile?: (index: number) => void,
 }
 
 export type CalendarFormType = {

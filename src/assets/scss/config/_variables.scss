@@ -9,10 +9,21 @@ $prefix:                        'bs-';
 
 // Google Font Family link
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 // Font Family
 $font-family-primary:                             "Public Sans", sans-serif;
 $font-family-secondary:                           "Public Sans", sans-serif;
+
+
+// Font Family Variables
+$font-family-primary:                             "Almarai", sans-serif;
+$font-family-secondary:                           "Almarai", sans-serif;
+
+// Font Weight Variables
+$font-weight-almarai-light:                       300;
+$font-weight-almarai-regular:                     400;
+$font-weight-almarai-bold:                        700;
+$font-weight-almarai-extrabold:                   800;
 
 
 //

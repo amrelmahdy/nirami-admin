@@ -527,6 +527,30 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@5.75.4":
+  version "5.75.4"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.75.4.tgz"
+  integrity sha512-pcqOUgWG9oGlzkfRQQMMsEFmtQu0wq81A414CtELZGq+ztVwSTAaoB3AZRAXQJs88LmNMk2YpUKuQbrvzNDyRg==
+
+"@tanstack/query-devtools@5.74.7":
+  version "5.74.7"
+  resolved "https://registry.npmjs.org/@tanstack/query-devtools/-/query-devtools-5.74.7.tgz"
+  integrity sha512-nSNlfuGdnHf4yB0S+BoNYOE1o3oAH093weAYZolIHfS2stulyA/gWfSk/9H4ZFk5mAAHb5vNqAeJOmbdcGPEQw==
+
+"@tanstack/react-query-devtools@^5.75.4":
+  version "5.75.5"
+  resolved "https://registry.npmjs.org/@tanstack/react-query-devtools/-/react-query-devtools-5.75.5.tgz"
+  integrity sha512-S31U00nJOQIbxydRH1kOwdLRaLBrda8O5QjzmgkRg60UZzPGdbI6+873Qa0YGUfPeILDbR2ukgWyg7CJQPy4iA==
+  dependencies:
+    "@tanstack/query-devtools" "5.74.7"
+
+"@tanstack/react-query@^5.75.4":
+  version "5.75.4"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.75.4.tgz"
+  integrity sha512-Vf65pzYRkf8fk9SP1ncIZjvaXszBhtsvpf+h45Y/9kOywOrVZfBGUpCdffdsVzbmBzmz6TCFes9bM0d3pRrIsA==
+  dependencies:
+    "@tanstack/query-core" "5.75.4"
+
 "@tanstack/react-table@^8.17.3":
   version "8.20.1"
   resolved "https://registry.npmjs.org/@tanstack/react-table/-/react-table-8.20.1.tgz"

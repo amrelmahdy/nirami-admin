@@ -1,3 +1,11 @@
+import Categories from '@/app/(admin)/categories/pages'
+import AddCategory from '@/app/(admin)/categories/pages/add'
+import Departments from '@/app/(admin)/departments/pages'
+import AddDepartment from '@/app/(admin)/departments/pages/add'
+import Groups from '@/app/(admin)/groups/pages'
+import AddGroup from '@/app/(admin)/groups/pages/add'
+import Products from '@/app/(admin)/products/pages'
+import AddProduct from '@/app/(admin)/products/pages/add'
 import { lazy } from 'react'
 import { Navigate, type RouteProps } from 'react-router-dom'
 
@@ -149,11 +157,50 @@ const generalRoutes: RoutesProps[] = [
 ]
 
 const appsRoutes: RoutesProps[] = [
-  //   {
-  //     name: 'Products',
-  //     path: '/ecommerce/products',
-  //     element: <EcommerceProducts />,
-  //   },
+  {
+    name: 'Products List',
+    path: '/products',
+    element: <Products />,
+  },
+
+  {
+    name: 'Departments List',
+    path: '/departments',
+    element: <Departments />,
+  },
+  {
+    name: 'Departments List',
+    path: '/departments/create',
+    element: <AddDepartment />,
+  },
+
+  {
+    name: 'Categories List',
+    path: '/categories',
+    element: <Categories />,
+  },
+
+  {
+    name: 'Create category',
+    path: '/categories/create',
+    element: <AddCategory />,
+  },
+  {
+    name: 'Groups List',
+    path: '/groups',
+    element: <Groups />,
+  },
+  {
+    name: 'Groups List',
+    path: '/groups/create',
+    element: <AddGroup />,
+  },
+  {
+    name: 'Create product',
+    path: '/products/create',
+    element: <AddProduct />,
+  },
+
   //   {
   //     name: 'Product Details',
   //     path: '/ecommerce/products/:productId',
@@ -226,6 +273,7 @@ const appsRoutes: RoutesProps[] = [
   //     path: '/apps/contacts',
   //     element: <Contacts />,
   //   },
+
   {
     name: 'Invoices List',
     path: '/invoices',
