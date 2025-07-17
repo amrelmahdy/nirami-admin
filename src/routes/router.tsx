@@ -6,9 +6,8 @@ import { appRoutes, authRoutes } from '@/routes/index'
 import AdminLayout from '@/layouts/AdminLayout'
 
 const AppRouter = (props: RouteProps) => {
-  //const { isAuthenticated } = useAuthContext()
+  const { isAuthenticated } = useAuthContext()
 
-  const isAuthenticated = true;
   
   return (
     <Routes>

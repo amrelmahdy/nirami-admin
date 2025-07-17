@@ -49,7 +49,7 @@ export function AuthProvider({ children }: ChildrenType) {
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: hasCookie(authSessionKey),
+        isAuthenticated: !!localStorage.getItem('access-token'),
         saveSession,
         removeSession,
       }}>

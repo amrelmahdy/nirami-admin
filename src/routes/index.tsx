@@ -1,3 +1,6 @@
+import Brands from '@/app/(admin)/brands/pages'
+import AddBrand from '@/app/(admin)/brands/pages/add'
+import EditBrand from '@/app/(admin)/brands/pages/edit'
 import Categories from '@/app/(admin)/categories/pages'
 import AddCategory from '@/app/(admin)/categories/pages/add'
 import Departments from '@/app/(admin)/departments/pages'
@@ -6,6 +9,7 @@ import Groups from '@/app/(admin)/groups/pages'
 import AddGroup from '@/app/(admin)/groups/pages/add'
 import Products from '@/app/(admin)/products/pages'
 import AddProduct from '@/app/(admin)/products/pages/add'
+import ProductDetail from '@/app/(admin)/products/pages/details'
 import { lazy } from 'react'
 import { Navigate, type RouteProps } from 'react-router-dom'
 
@@ -185,6 +189,26 @@ const appsRoutes: RoutesProps[] = [
     path: '/categories/create',
     element: <AddCategory />,
   },
+
+  {
+    name: 'Brands List',
+    path: '/brands',
+    element: <Brands />,
+  },
+
+  {
+    name: 'Create brand',
+    path: '/brands/create',
+    element: <Brands />,
+  },
+
+  {
+    name: 'Edit Brand',
+    path: '/brands/:brandId/edit',
+    element: <EditBrand />,
+  },
+
+
   {
     name: 'Groups List',
     path: '/groups',
@@ -199,6 +223,11 @@ const appsRoutes: RoutesProps[] = [
     name: 'Create product',
     path: '/products/create',
     element: <AddProduct />,
+  },
+  {
+    name: 'Product Details',
+    path: '/products/:productId',
+    element: <ProductDetail />,
   },
 
   //   {

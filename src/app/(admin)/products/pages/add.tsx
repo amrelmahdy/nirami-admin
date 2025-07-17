@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { serverSideFormValidate } from '@/helpers/data'
 import { ValidationError } from 'yup'
 import ComponentContainerCard from '@/components/ComponentContainerCard'
-import { Button, Col, Row, Form, FormCheck, FormControl, FormGroup, FormLabel, FormSelect, InputGroup, Alert } from 'react-bootstrap'
+import { Button, Col, Row, Form, FormCheck, FormControl, FormGroup, FormLabel, FormSelect, InputGroup, Alert, Spinner } from 'react-bootstrap'
 import Feedback from 'react-bootstrap/esm/Feedback'
 import InputGroupText from 'react-bootstrap/esm/InputGroupText'
 import clsx from 'clsx'
@@ -17,6 +17,10 @@ import { Group, useGetGroups } from '../../groups/groups.hooks'
 import { Department, useGetDepartments } from '../../departments/departments.hooks'
 import { Category, useGetCategories } from '../../categories/categories.hooks'
 import { Brand, useGetBrands } from '../../brands/brands.hooks'
+import { Product, useAddProduct, useGetProducts } from '../products.hooks'
+import { co } from 'node_modules/@fullcalendar/core/internal-common'
+import { getProductDetails } from '../products.api'
+import ChoicesFormInput from '@/components/form/ChoicesFormInput'
 
 type ValidationErrorType = {
     name?: string
@@ -58,6 +62,7 @@ interface FormValue {
     salesPrice: number;
     maxQuantity: number;
     sku: string;
+    parentProduct: string | null;
 }
 
 const validateForm = (form: FormValue): { isValid: boolean; errors: Partial<Record<keyof FormValue, string>> } => {
@@ -87,22 +92,14 @@ const validateForm = (form: FormValue): { isValid: boolean; errors: Partial<Reco
 
 const AddProduct = () => {
 
+
+
     const navigate = useNavigate();
-
-    const [serverError, setServerError] = useState("");
-
-    const [validated, setValidated] = useState(false)
-    const [formErrors, setFormErrors] = useState<ValidationErrorType[]>([])
-
-    const [productImage, setProductImage] = useState<File | undefined>(undefined);
-    const [productImages, setProductImages] = useState<File[] | []>([]);
-
 
 
 
     // const addDepartment = useAddDepartment();
-
-    const [formValue, setFormValue] = useState({
+    const [formValue, setFormValue] = useState<FormValue>({
         arName: '',
         enName: '',
         arDescription: '',
@@ -117,15 +114,30 @@ const AddProduct = () => {
         price: 0,
         salesPrice: 0,
         maxQuantity: 4,
-        sku: ''
+        sku: '',
+        parentProduct: null
     })
 
 
 
-    const { data: departmentsList, isDepartmentsError, isDepartmentsLoading } = useGetDepartments();
-    const { data: categoriesList, isCategoriesError, isCategoriesLoading } = useGetCategories({ departmentId: formValue.department });
-    const { data: groupsList, isGroupsError, isGroupsLoading } = useGetGroups({ categoryId: formValue.category });
-    const { data: brandsList, isBrandsError, isBrandsLoading } = useGetBrands();
+    const addProduct = useAddProduct();
+
+
+    const [serverError, setServerError] = useState("");
+
+    const [validated, setValidated] = useState(false)
+    const [formErrors, setFormErrors] = useState<ValidationErrorType[]>([])
+
+    const [productImage, setProductImage] = useState<File | undefined>(undefined);
+    const [productImages, setProductImages] = useState<File[] | []>([]);
+
+
+
+    const { data: productsList, isError: isProductsError, isLoading: isProductsLoading } = useGetProducts({ onlyParents: true });
+    const { data: departmentsList, isError: isDepartmentsError, isLoading: isDepartmentsLoading } = useGetDepartments();
+    const { data: categoriesList, isError: isCategoriesError, isLoading: isCategoriesLoading } = useGetCategories({ departmentId: formValue.department });
+    const { data: groupsList, isError: isGroupsError, isLoading: isGroupsLoading } = useGetGroups({ categoryId: formValue.category });
+    const { data: brandsList, isError: isBrandsError, isLoading: isBrandsLoading } = useGetBrands();
 
 
 
@@ -137,7 +149,7 @@ const AddProduct = () => {
     console.log(validateForm(formValue))
 
 
-    console.log("formValueformValueformValue", formValue)
+    console.log("productsListproductsListproductsListproductsListproductsList", productsList)
 
 
     const isValidInput = (name: string) => {
@@ -158,7 +170,6 @@ const AddProduct = () => {
         });
         setFormErrors(allErrors);
 
-
         const newProduct: any = {
             name: {
                 ar: formValue.arName,
@@ -173,31 +184,41 @@ const AddProduct = () => {
                 ar: formValue.arComponents
             },
             sku: formValue.sku,
-            price: formValue.price,
-            salesPrice: formValue.salesPrice,
+            price: parseFloat(formValue.price),
+            salesPrice: parseFloat(formValue.salesPrice),
             brand: formValue.brand,
             group: formValue.group,
-            stock: formValue.stock,
-            maxQuantity: formValue.maxQuantity,
-
+            stock: parseInt(formValue.stock),
+            maxQuantity: parseInt(formValue.maxQuantity),
+            parentProduct: formValue.parentProduct ? formValue.parentProduct : null,
         }
 
-        console.log(newProduct)
+
+        console.log("newProduct", newProduct)
 
 
-        // if (productImage) {
-        //     const uploaded = await uploadCloudImages([productImage], `products`);
-        //     newProduct.image = uploaded[0].url;
-        // }
 
-        // addDepartment.mutate(newProduct, {
-        //     onSuccess: () => {
-        //         navigate("/products")
-        //     }, onError: (error) => {
-        //         console.log("error", navigate)
-        //         setServerError(error.message || "Unknown error")
-        //     }
-        // });
+        if (productImage) {
+            console.log("Image card : productImage", productImage)
+            const uploadedImages = await uploadCloudImages([productImage], `products`);
+            newProduct.productCardImage = uploadedImages[0].url;
+        }
+
+        if (productImages.length > 0) {
+            console.log("Image card : productImages", productImages)
+            const uploadedImages = await uploadCloudImages(productImages, `products`);
+            newProduct.images = uploadedImages;
+        }
+
+
+        addProduct.mutate(newProduct, {
+            onSuccess: (product) => {
+                navigate(`/products/${product.id}`)
+            }, onError: (error) => {
+                console.log("error", navigate)
+                setServerError(error.message || "Unknown error")
+            }
+        });
     }
 
 
@@ -222,88 +243,200 @@ const AddProduct = () => {
                             </>
                         }>
 
+
+
                         <Form className="row g-3 needs-validation" noValidate validated={validated} onSubmit={handleSubmit}>
 
-                            <div className="mb-3" />
-
                             <Row>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>الإسم العربي</FormLabel>
-                                        <FormControl type="text" id="validationCustom01" name='arName' placeholder="الإسم بالعربي" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال الاسم باللغة العربية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>الإسم بالإنجليزية</FormLabel>
-                                        <FormControl type="text" id="validationCustom02" name='enName' placeholder="الإسم بالإنجليزية" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال الاسم باللغة الإنجليزية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
+                                <div className="mb-3" />
+                                <FormGroup>
+                                    <FormLabel>المنتج الأم (إختياري)</FormLabel>
+
+
+                                    {productsList?.products && productsList?.products.length && <ChoicesFormInput onChange={async (value) => {
+                                        console.log("e.target.value>>>>>", value)
+
+                                        if (value === "") {
+                                            setFormValue({
+                                                ...formValue,
+                                                parentProduct: value as string
+                                            })
+                                        } else {
+                                            const selectedProduct = await getProductDetails(value as string);
+                                            if (selectedProduct) {
+                                                setFormValue({
+                                                    ...formValue,
+                                                    arName: selectedProduct.name.ar,
+                                                    enName: selectedProduct.name.en,
+                                                    arDescription: selectedProduct.description.ar,
+                                                    enDescription: selectedProduct.description.en,
+                                                    arComponents: selectedProduct.components.ar,
+                                                    enComponents: selectedProduct.components.en,
+                                                    brand: selectedProduct.brand.id,
+                                                    group: selectedProduct.group.id,
+                                                    parentProduct: value as string
+                                                })
+                                            }
+                                        }
+
+
+
+                                        //  name: {
+                                        //     ar: formValue.arName,
+                                        //     en: formValue.enName
+                                        // },
+                                        // description: {
+                                        //     en: formValue.enDescription,
+                                        //     ar: formValue.arDescription
+                                        // },
+                                        // components: {
+                                        //     en: formValue.enComponents,
+                                        //     ar: formValue.arComponents
+                                        // },
+                                        // sku: formValue.sku,
+                                        // price: parseFloat(formValue.price),
+                                        // salesPrice: parseFloat(formValue.salesPrice),
+                                        // brand: formValue.brand,
+                                        // group: formValue.group,
+                                        // stock: parseInt(formValue.stock),
+                                        // maxQuantity: parseInt(formValue.maxQuantity),
+                                        // parentProduct: formValue.parentProduct ? formValue.parentProduct : null,
+
+                                    }}>
+                                        <option value="">اختار المنتج</option>
+
+                                        {productsList?.products?.map((product: Product, idx) => (
+                                            <option key={idx} value={product._id}>
+                                                {product.name.ar}
+                                            </option>
+                                        ))}
+
+                                    </ChoicesFormInput>}
+
+                                    {/* <Form.Select required onChange={async (e) => {
+                                        //console.log("e.target.value>>>>>", e.target.value)   
+
+                                        if (e.target.value === "") {
+                                            setFormValue({
+                                                ...formValue,
+                                                parentProduct: e.target.value as string
+                                            })
+                                        } else {
+                                            const selectedProduct = await getProductDetails(e.target.value as string);
+                                            if (selectedProduct) {
+                                                setFormValue({
+                                                    ...formValue,
+                                                    arName: selectedProduct.name.ar,
+                                                    enName: selectedProduct.name.en,
+                                                    arDescription: selectedProduct.description.ar,
+                                                    enDescription: selectedProduct.description.en,
+                                                    arComponents: selectedProduct.components.ar,
+                                                    enComponents: selectedProduct.components.en,
+                                                    brand: selectedProduct.brand.id,
+                                                    group: selectedProduct.group.id,
+                                                    parentProduct: e.target.value as string
+                                                })
+                                            }
+                                        }
+
+
+
+
+                                    }} aria-label="Default select example">
+                                        <option value="">اختار المنتج</option>
+                                        {productsList?.products?.map((product: Product, idx) => (
+                                            <option key={idx} value={product._id}>
+                                                {product.name.ar}
+                                            </option>
+                                        ))}
+                                    </Form.Select> */}
+                                </FormGroup>
+                                <div className="mb-3" />
                             </Row>
 
 
+                            {!formValue.parentProduct &&
 
-                            <div className="mb-3" />
-
-                            <Row>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>الوصف العربي</FormLabel>
-                                        <FormControl as="textarea" rows={3} id="validationCustom01" name='arDescription' placeholder="الوصف بالعربي" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال الوصف باللغة العربية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>الوصف بالإنجليزية</FormLabel>
-                                        <FormControl as="textarea" rows={3} id="validationCustom02" name='enDescription' placeholder="الوصف بالإنجليزية" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال الوصف باللغة الإنجليزية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-
-                            <div className="mb-3" />
+                                <>
+                                    <Row>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>الإسم العربي</FormLabel>
+                                                <FormControl type="text" id="validationCustom01" name='arName' placeholder="الإسم بالعربي" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال الاسم باللغة العربية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>الإسم بالإنجليزية</FormLabel>
+                                                <FormControl type="text" id="validationCustom02" name='enName' placeholder="الإسم بالإنجليزية" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال الاسم باللغة الإنجليزية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
 
 
-                            <Row>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>المكونات العربي</FormLabel>
-                                        <FormControl as="textarea" rows={3} id="validationCustom01" name='arComponents' placeholder="المكونات بالعربي" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال المكونات باللغة العربية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={6}>
-                                    <FormGroup >
-                                        <FormLabel>المكونات بالإنجليزية</FormLabel>
-                                        <FormControl as="textarea" rows={3} id="validationCustom02" name='enComponents' placeholder="المكونات بالإنجليزية" defaultValue="" required onChange={handleChange} />
-                                        <Feedback>صحيح</Feedback>
-                                        <Feedback type="invalid">
-                                            برجاء ادخال المكونات باللغة الإنجليزية
-                                        </Feedback>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
 
-                            <div className="mb-3" />
+                                    <div className="mb-3" />
 
+                                    <Row>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>الوصف العربي</FormLabel>
+                                                <FormControl as="textarea" rows={3} id="validationCustom01" name='arDescription' placeholder="الوصف بالعربي" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال الوصف باللغة العربية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>الوصف بالإنجليزية</FormLabel>
+                                                <FormControl as="textarea" rows={3} id="validationCustom02" name='enDescription' placeholder="الوصف بالإنجليزية" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال الوصف باللغة الإنجليزية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+
+                                    <div className="mb-3" />
+
+
+                                    <Row>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>المكونات العربي</FormLabel>
+                                                <FormControl as="textarea" rows={3} id="validationCustom01" name='arComponents' placeholder="المكونات بالعربي" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال المكونات باللغة العربية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col xs={6}>
+                                            <FormGroup >
+                                                <FormLabel>المكونات بالإنجليزية</FormLabel>
+                                                <FormControl as="textarea" rows={3} id="validationCustom02" name='enComponents' placeholder="المكونات بالإنجليزية" defaultValue="" required onChange={handleChange} />
+                                                <Feedback>صحيح</Feedback>
+                                                <Feedback type="invalid">
+                                                    برجاء ادخال المكونات باللغة الإنجليزية
+                                                </Feedback>
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+
+                                    <div className="mb-3" />
+                                </>
+                            }
 
                             <Row>
                                 <Col xs={12}>
@@ -326,81 +459,85 @@ const AddProduct = () => {
                                         }}
                                     />
 
-                                    <div className="mb-3" />
+
+
+                                    {!formValue.parentProduct && <>
+                                        <div className="mb-3" />
+
+                                        <FormGroup >
+                                            <FormLabel>الماركة</FormLabel>
+                                            <Form.Select required onChange={(e) => {
+                                                setFormValue({ ...formValue, brand: e.target.value as string })
+                                            }} aria-label="Default select example">
+                                                <option value="">اختار الماركة</option>
+                                                {brandsList?.map((brand: Brand, idx) => (
+                                                    <option key={idx} value={brand.id}>
+                                                        {brand.name.ar}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </FormGroup>
+
+                                        <div className="mb-3" />
+
+
+
+                                        {!isDepartmentsError && !isDepartmentsLoading && <FormGroup >
+                                            <FormLabel>القسم</FormLabel>
+                                            <Form.Select required onChange={(e) => {
+                                                setFormValue({ ...formValue, department: e.target.value as string })
+                                            }} aria-label="Default select example">
+                                                <option value="">اختار القسم</option>
+                                                {departmentsList?.map((department: Department, idx) => (
+                                                    <option key={idx} value={department.id}>
+                                                        {department.name.ar}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </FormGroup>}
+
+                                        <div className="mb-3" />
+
+
+                                        {!isCategoriesError && !isCategoriesLoading && <FormGroup >
+                                            <FormLabel>الفئة</FormLabel>
+                                            <Form.Select disabled={formValue.department === ""} required onChange={(e) => {
+                                                setFormValue({ ...formValue, category: e.target.value as string })
+                                            }} aria-label="Default select example">
+                                                <option value="">اختار الفئة</option>
+                                                {categoriesList?.map((category: Category, idx) => (
+                                                    <option key={idx} value={category.id}>
+                                                        {category.name.ar}
+                                                        &nbsp;
+                                                        ({category.department.name.ar})
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </FormGroup>}
+
+                                        <div className="mb-3" />
+
+                                        {!isGroupsError && !isGroupsLoading && <FormGroup >
+                                            <FormLabel>المجموعة</FormLabel>
+                                            <Form.Select disabled={formValue.category === ""} required onChange={(e) => {
+                                                setFormValue({ ...formValue, group: e.target.value as string })
+                                            }} aria-label="Default select example">
+                                                <option value="">اختار المجموعة</option>
+                                                {groupsList?.map((group: Group, idx) => (
+                                                    <option key={idx} value={group.id}>
+                                                        {group.name.ar}
+                                                        &nbsp;
+                                                        ({group.category.name.ar})
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                        </FormGroup>}
+
+                                        <div className="mb-3" />
+                                    </>}
 
                                     <FormGroup >
-                                        <FormLabel>الماركة</FormLabel>
-                                        <Form.Select required onChange={(e) => {
-                                            setFormValue({ ...formValue, brand: e.target.value as string })
-                                        }} aria-label="Default select example">
-                                            <option value="">اختار الماركة</option>
-                                            {brandsList?.map((brand: Brand, idx) => (
-                                                <option key={idx} value={brand.id}>
-                                                    {brand.name.ar}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
-                                    </FormGroup>
-
-                                    <div className="mb-3" />
-
-
-
-                                    {!isDepartmentsError && !isDepartmentsLoading && <FormGroup >
-                                        <FormLabel>القسم</FormLabel>
-                                        <Form.Select required onChange={(e) => {
-                                            setFormValue({ ...formValue, department: e.target.value as string })
-                                        }} aria-label="Default select example">
-                                            <option value="">اختار القسم</option>
-                                            {departmentsList?.map((department: Department, idx) => (
-                                                <option key={idx} value={department.id}>
-                                                    {department.name.ar}
-                                                </option>
-                                            ))}
-                                        </Form.Select>
-                                    </FormGroup>}
-
-                                    <div className="mb-3" />
-
-
-                                    {!isCategoriesError && !isCategoriesLoading && <FormGroup >
-                                        <FormLabel>الفئة</FormLabel>
-                                        <Form.Select disabled={formValue.department === ""} required onChange={(e) => {
-                                            setFormValue({ ...formValue, category: e.target.value as string })
-                                        }} aria-label="Default select example">
-                                            <option value="">اختار الفئة</option>
-                                            {categoriesList?.map((category: Category, idx) => (
-                                                <option key={idx} value={category.id}>
-                                                    {category.name.ar}
-                                                    &nbsp;
-                                                    ({category.department.name.ar})
-                                                </option>
-                                            ))}
-                                        </Form.Select>
-                                    </FormGroup>}
-
-                                    <div className="mb-3" />
-
-                                    {!isGroupsError && !isGroupsLoading && <FormGroup >
-                                        <FormLabel>المجموعة</FormLabel>
-                                        <Form.Select disabled={formValue.category === ""} required onChange={(e) => {
-                                            setFormValue({ ...formValue, group: e.target.value as string })
-                                        }} aria-label="Default select example">
-                                            <option value="">اختار المجموعة</option>
-                                            {groupsList?.map((group: Group, idx) => (
-                                                <option key={idx} value={group.id}>
-                                                    {group.name.ar}
-                                                    &nbsp;
-                                                    ({group.category.name.ar})
-                                                </option>
-                                            ))}
-                                        </Form.Select>
-                                    </FormGroup>}
-
-                                    <div className="mb-3" />
-
-                                    <FormGroup >
-                                        <FormLabel>السعر</FormLabel>
+                                        <FormLabel>السعر قبل الخصم</FormLabel>
                                         <FormControl type="number" id="validationCustom01" name='price' placeholder="برجاء ادخال السعر" defaultValue="" required onChange={handleChange} />
                                         <Feedback>صحيح</Feedback>
                                         <Feedback type="invalid">
@@ -413,7 +550,7 @@ const AddProduct = () => {
 
 
                                     <FormGroup >
-                                        <FormLabel>سعر العرض</FormLabel>
+                                        <FormLabel>السعر بعد الخصم</FormLabel>
                                         <FormControl type="number" id="validationCustom01" name='salesPrice' placeholder="برجاء ادخال سعر العرض" defaultValue="" required onChange={handleChange} />
                                         <Feedback>صحيح</Feedback>
                                         <Feedback type="invalid">
@@ -490,9 +627,23 @@ const AddProduct = () => {
                             </Row>
 
                             <Col xs={12}>
-                                <Button disabled={!validateForm(formValue).isValid} variant="primary" className="width-xl" type="submit">
+
+
+                                <Button variant="primary" className="width-xl" type="submit">
+                                    <Spinner color="white" className="spinner-border-sm me-1" />
                                     حفظ
                                 </Button>
+                                {/* <Button  variant="primary" className="width-xl" type="submit">
+                                    <Spinner color="white" className="spinner-border-sm me-1" />
+                                    حفظ
+                                </Button> */}
+                                {/* <Button disabled={!validateForm(formValue).isValid} variant="primary" className="width-xl" type="submit">
+                                    <Spinner className="spinner-grow-sm me-1" tag="span" color="white" type="grow" />
+                                    حفظ
+                                </Button>
+                                <Button disabled={!validateForm(formValue).isValid} variant="primary" className="width-xl" type="submit">
+                                    حفظ
+                                </Button> */}
                             </Col>
                         </Form>
                     </ComponentContainerCard>
@@ -504,15 +655,3 @@ const AddProduct = () => {
 
 export default AddProduct
 
-
-// @Prop({ default: false })
-// isOutOfStock: boolean;
-
-// @Prop({ default: false })
-// isOnSale: boolean;
-
-// @Prop({ default: false })
-// isFeatured: boolean;
-
-// @Prop({ default: false })
-// isPublished: boolean;

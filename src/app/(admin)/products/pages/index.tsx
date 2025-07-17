@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Card, CardBody, Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import PageMetaData from '@/components/PageTitle'
 import IconifyIcon from '@/components/wrappers/IconifyIcon'
@@ -10,9 +10,10 @@ import type { InvoiceType } from '@/types/data'
 import { Product, useGetProducts } from './../products.hooks'
 
 const Products = () => {
-  const { data, isError, isLoading } = useGetProducts();
+  const { data, isError, isLoading } = useGetProducts( { onlyParents: true } );
   console.log("adaa", data)
 
+    const navigate = useNavigate();
 
 
   return (
@@ -33,8 +34,8 @@ const Products = () => {
                   <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
                 </div>
                 <div>
-                  <Button variant="success">
-                    <IconifyIcon icon="bx:plus" className="me-1" />
+                <Button onClick={() => navigate("/products/create")} variant="success">
+                <IconifyIcon icon="bx:plus" className="me-1" />
                     إضافة منتج
                   </Button>
                 </div>
@@ -59,10 +60,10 @@ const Products = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {!isError && !isLoading && data?.map((product: Product, idx) => (
+                    {!isError && !isLoading && data?.products?.map((product: Product, idx) => (
                       <tr key={idx}>
                         <td>
-                          <Link to={`/products/${product.id}`} className="fw-medium">
+                          <Link to={`/products/${product._id}`} className="fw-medium">
                             #{product.sku}
                           </Link>
                         </td>
@@ -84,13 +85,13 @@ const Products = () => {
 
                         <td>
                           <div>
-                            <h5 className="fs-14 mt-1 fw-normal">{product.group.category?.department?.name.ar}</h5>
+                            <h5 className="fs-14 mt-1 fw-normal">{product.group?.category?.department?.name.ar}</h5>
                           </div>
                         </td>
 
                         <td>
                           <div>
-                            <h5 className="fs-14 mt-1 fw-normal">{product.group.category?.name.ar}</h5>
+                            <h5 className="fs-14 mt-1 fw-normal">{product.group?.category?.name.ar}</h5>
                           </div>
                         </td>
                         <td>

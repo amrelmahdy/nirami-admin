@@ -44,7 +44,7 @@ const LiveExample = () => {
       description={
         <>Click the button below to show a toast (positioned with our utilities in the lower right corner) that has been hidden by default.</>
       }>
-      <Button variant="primary" onClick={toggle} type="button" id="liveToastDefaultBtn">
+      <Button variant="danger" onClick={toggle} type="button" id="liveToastDefaultBtn">
         Show live toast
       </Button>
       <div className="toast-container position-fixed bottom-0 end-0 p-3">

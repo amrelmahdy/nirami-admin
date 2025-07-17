@@ -78,12 +78,12 @@ export const MENU_ITEMS: MenuItemType[] = [
         url: '/groups',
         parentKey: 'apps-invoices',
       },
-      {
-        key: 'invoices-details',
-        label: 'المجموعات',
-        url: '/invoices/RB6985',
-        parentKey: 'apps-invoices',
-      },
+      // {
+      //   key: 'invoices-details',
+      //   label: 'المجموعات',
+      //   url: '/invoices/RB6985',
+      //   parentKey: 'apps-invoices',
+      // },
     ],
   },
   {

@@ -25,7 +25,7 @@ const Chat = ({ onUserSelect, users, selectedUser }: ChatUsersProps) => {
             </div>
             <div className="flex-grow-1 overflow-hidden">
               <h5 className="my-0">
-                <span className="float-end text-muted fs-13">{timeSince(new Date(user.time))}</span>
+                {/* <span className="float-end text-muted fs-13">{timeSince(new Date(user.time))}</span> */}
                 {user.name}
               </h5>
               <p className="mt-1 mb-0 fs-13 text-muted d-flex align-items-end justify-content-between">
