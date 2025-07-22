@@ -14,7 +14,15 @@ export const uploadCloudImages = async (images: File[], path?: string) => {
 
     if (path) formData.append('path', path);
 
-    const { data } = await httpClient.post(`http://localhost:3000/cloudinary/upload-multiple-files`, formData);
+    const { data } = await httpClient.post(`/cloudinary/upload-multiple-files`, formData);
+    return data;
+};
+
+
+export const deleteCloudImage = async (publicId: string) => {
+    const { data } = await httpClient.delete(`/cloudinary/delete-file`, {
+        data: { publicId }
+    });
     return data;
 };
 

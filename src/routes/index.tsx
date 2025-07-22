@@ -10,6 +10,7 @@ import AddGroup from '@/app/(admin)/groups/pages/add'
 import Products from '@/app/(admin)/products/pages'
 import AddProduct from '@/app/(admin)/products/pages/add'
 import ProductDetail from '@/app/(admin)/products/pages/details'
+import EditProduct from '@/app/(admin)/products/pages/edit'
 import { lazy } from 'react'
 import { Navigate, type RouteProps } from 'react-router-dom'
 
@@ -166,6 +167,22 @@ const appsRoutes: RoutesProps[] = [
     path: '/products',
     element: <Products />,
   },
+  {
+    name: 'Edit Product',
+    path: '/products/:productId/edit',
+    element: <EditProduct />,
+  },
+
+  {
+    name: 'Create product',
+    path: '/products/create',
+    element: <AddProduct />,
+  },
+  {
+    name: 'Product Details',
+    path: '/products/:productId',
+    element: <ProductDetail />,
+  },
 
   {
     name: 'Departments List',
@@ -219,16 +236,7 @@ const appsRoutes: RoutesProps[] = [
     path: '/groups/create',
     element: <AddGroup />,
   },
-  {
-    name: 'Create product',
-    path: '/products/create',
-    element: <AddProduct />,
-  },
-  {
-    name: 'Product Details',
-    path: '/products/:productId',
-    element: <ProductDetail />,
-  },
+
 
   //   {
   //     name: 'Product Details',

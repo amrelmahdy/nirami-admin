@@ -10,10 +10,10 @@ import type { InvoiceType } from '@/types/data'
 import { Product, useGetProducts } from './../products.hooks'
 
 const Products = () => {
-  const { data, isError, isLoading } = useGetProducts( { onlyParents: true } );
+  const { data, isError, isLoading } = useGetProducts({ onlyParents: true });
   console.log("adaa", data)
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   return (
@@ -34,8 +34,8 @@ const Products = () => {
                   <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
                 </div>
                 <div>
-                <Button onClick={() => navigate("/products/create")} variant="success">
-                <IconifyIcon icon="bx:plus" className="me-1" />
+                  <Button onClick={() => navigate("/products/create")} variant="success">
+                    <IconifyIcon icon="bx:plus" className="me-1" />
                     إضافة منتج
                   </Button>
                 </div>
@@ -109,7 +109,16 @@ const Products = () => {
 
                         <td> {product.createdAt && new Date(product.createdAt).toDateString()}</td>
 
-
+                        <td>
+                          <Button onClick={() => navigate(`/products/${product.id || product._id}/edit`)} variant="soft-secondary" size="sm" type="button" className="me-2">
+                            <IconifyIcon icon="bx:edit" className="fs-16" />
+                          </Button>
+                          <Button variant="soft-danger" size="sm" type="button"
+                            onClick={() => {}}
+                          >
+                            <IconifyIcon icon="bx:trash" className="bx bx-trash fs-16" />
+                          </Button>
+                        </td>
                         {/* 
                         <td>
                           <div className="d-flex align-items-center">

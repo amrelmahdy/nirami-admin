@@ -50,7 +50,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     isTitle: true,
   },
   {
-    key: 'apps-invoices',
+    key: 'apps-products',
     icon: 'line-md:grid-3',
     label: 'المنتجات',
     children: [
@@ -58,25 +58,31 @@ export const MENU_ITEMS: MenuItemType[] = [
         key: 'products',
         label: 'المنتجات',
         url: '/products',
-        parentKey: 'apps-invoices',
+        parentKey: 'apps-products',
       },
       {
         key: 'departments',
         label: 'الأقسام',
         url: '/departments',
-        parentKey: 'apps-invoices',
+        parentKey: 'apps-products',
       },
       {
         key: 'categories',
         label: 'الفئات',
         url: '/categories',
-        parentKey: 'apps-invoices',
+        parentKey: 'apps-products',
       },
       {
         key: 'groups',
         label: 'المجموعات',
         url: '/groups',
-        parentKey: 'apps-invoices',
+        parentKey: 'apps-products',
+      },
+       {
+        key: 'brands',
+        label: 'العلامات التجارية',
+        url: '/brands',
+        parentKey: 'apps-products',
       },
       // {
       //   key: 'invoices-details',
@@ -87,10 +93,10 @@ export const MENU_ITEMS: MenuItemType[] = [
     ],
   },
   {
-    key: 'apps-email',
+    key: 'apps-orders',
     icon: 'solar:cart-3-outline',
     label: 'الطلبات',
-    url: '/apps/email',
+    url: '/invoices',
   },
   {
     key: 'apps-email',

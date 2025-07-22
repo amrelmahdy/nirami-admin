@@ -115,7 +115,7 @@ const LayoutProvider = ({ children }: ChildrenType) => {
         [settings, offcanvasStates],
       )}>
       {children}
-      {offcanvasStates.showBackdrop && <div className="offcanvas-backdrop fade show" onClick={toggleBackdrop} />}
+      {/* {offcanvasStates.showBackdrop && <div className="offcanvas-backdrop fade show" onClick={toggleBackdrop} />} */}
     </ThemeContext.Provider>
   )
 }
