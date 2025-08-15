@@ -86,7 +86,7 @@ const AddBrand = () => {
 
 
         if (groupImage) {
-            const uploaded = await uploadCloudImages([groupImage], `groups`);
+            const uploaded = await uploadCloudImages([groupImage], `brands`);
             newGroup.image = uploaded[0].url;
         }
 
@@ -168,7 +168,7 @@ const AddBrand = () => {
 
 
                             <Col xs={12}>
-                                <Button disabled={formValue.arName === "" || formValue.enName === "" || formValue.category === ""} variant="primary" className="width-xl" type="submit">
+                                <Button disabled={formValue.arName === "" || formValue.enName === "" } variant="primary" className="width-xl" type="submit">
                                     حفظ
                                 </Button>
                             </Col>

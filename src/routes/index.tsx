@@ -7,6 +7,7 @@ import Departments from '@/app/(admin)/departments/pages'
 import AddDepartment from '@/app/(admin)/departments/pages/add'
 import Groups from '@/app/(admin)/groups/pages'
 import AddGroup from '@/app/(admin)/groups/pages/add'
+import Orders from '@/app/(admin)/orders/pages'
 import Products from '@/app/(admin)/products/pages'
 import AddProduct from '@/app/(admin)/products/pages/add'
 import ProductDetail from '@/app/(admin)/products/pages/details'
@@ -216,7 +217,7 @@ const appsRoutes: RoutesProps[] = [
   {
     name: 'Create brand',
     path: '/brands/create',
-    element: <Brands />,
+    element: <AddBrand />,
   },
 
   {
@@ -312,7 +313,12 @@ const appsRoutes: RoutesProps[] = [
   //   },
 
   {
-    name: 'Invoices List',
+    name: 'Orders List',
+    path: '/orders',
+    element: <Orders />,
+  },
+    {
+    name: 'Invoices Details',
     path: '/invoices',
     element: <Invoices />,
   },

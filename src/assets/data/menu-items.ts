@@ -96,14 +96,14 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: 'apps-orders',
     icon: 'solar:cart-3-outline',
     label: 'الطلبات',
-    url: '/invoices',
+    url: '/orders',
   },
-  {
-    key: 'apps-email',
-    icon: 'solar:letter-broken',
-    label: 'العروض',
-    url: '/apps/email',
-  },
+  // {
+  //   key: 'apps-email',
+  //   icon: 'solar:letter-broken',
+  //   label: 'العروض',
+  //   url: '/apps/email',
+  // },
   {
     key: 'custom',
     label: 'Custom',

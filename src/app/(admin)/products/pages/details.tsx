@@ -236,9 +236,9 @@ const ProductDetail = () => {
 
                     <img src={product.productCardImage} alt="image" className="img-fluid img-thumbnail" width={200} />
 
-                    {/*               
-                      <Placeholder xs={6} /> */}
-
+                    <Button variant="secondary" type="button" onClick={() => navigate(`/products/${product.id || product._id}/edit`)}>
+                      تعديل النتج
+                    </Button>
 
 
                     <div className="table-responsive table-borderless text-nowrap mt-3 table-centered">
@@ -361,25 +361,11 @@ const ProductDetail = () => {
                               <td><strong>لون المنتج</strong></td>
                               <td>
 
-                                {/* <Button type="button" variant="primary" onClick={toggleModelUpdateProductColorForm}>
+                                <Button type="button" variant="primary" onClick={toggleModelUpdateProductColorForm}>
                                   {product.color ? "تعديل لون المنتج" : "إضافة لون للمنتج"}
                                 </Button>
 
                                 <div style={{ width: "30px", height: "30px", backgroundColor: product?.color?.value }}></div>
-                                 */}
-
-                                <td>
-                                  <div style={{ width: "30px", height: "30px", backgroundColor: product?.color?.value, marginLeft: "20px" }}></div>
-                                </td>
-
-                                <td>
-                                  <Button variant="primary" onClick={() => {
-                                    // handleOnDeleteVariant(product.id, variant.id || "")
-                                    // setVariantDelete(variant)
-                                  }}>
-                                    {product.color ? "تعديل لون المنتج" : "إضافة لون للمنتج"}
-                                  </Button>
-                                </td>
                               </td>
                             </tr>
 
@@ -415,7 +401,7 @@ const ProductDetail = () => {
 
                                   <td>
                                     {variant?.color?.name.ar}
-                                    <strong> (المنتج الأم)</strong> 
+                                    <strong> (المنتج الأم)</strong>
                                   </td>
                                   <td>
                                     <div style={{ width: "30px", height: "30px", backgroundColor: variant?.color?.value }}></div>
@@ -423,8 +409,8 @@ const ProductDetail = () => {
 
                                   <td>
                                     {
-                                     variant.id !== productId && <Button variant="primary" onClick={() => {
-                                         navigate(`/products/${variant.id}`)
+                                      variant.id !== productId && <Button variant="primary" onClick={() => {
+                                        navigate(`/products/${variant.id}`)
                                         // handleOnDeleteVariant(product.id, variant.id || "")
                                         // setVariantDelete(variant)
                                       }}>

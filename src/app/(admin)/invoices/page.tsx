@@ -84,7 +84,7 @@ const Invoices = () => {
                             {invoice.order?.status}
                           </span>
                         </td>
-                        <td>{invoice.order?.paymentMethod}</td>
+                        <td>{invoice.order?.paymentMethod}fff</td>
                         <td>
                           <Button variant="soft-secondary" size="sm" type="button" className="me-2">
                             <IconifyIcon icon="bx:edit" className="fs-16" />

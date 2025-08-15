@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, CardBody, Col, Row } from 'react-bootstrap'
+import { Button, Card, CardBody, Col, Row, Spinner } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
 import PageMetaData from '@/components/PageTitle'
@@ -16,11 +16,20 @@ const Products = () => {
   const navigate = useNavigate();
 
 
+
+  if (isLoading) {
+    return (
+      <div className="text-center" style={{ marginTop: '20%' }}>
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
   return (
     <>
       <PageMetaData title="المنتجات" />
 
-      <p>loading</p>
+      
 
       <Row>
         <Col>
