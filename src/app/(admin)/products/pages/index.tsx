@@ -17,13 +17,7 @@ const Products = () => {
 
 
 
-  if (isLoading) {
-    return (
-      <div className="text-center" style={{ marginTop: '20%' }}>
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+
 
   return (
     <>
