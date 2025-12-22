@@ -22,6 +22,20 @@ export const addCategory = async (department: NewCategory) => {
 }
 
 
+
+export const getCategoryDetails = async (categoryId: string) => {
+    const result = await httpClient.get(`/categories/${categoryId}`);
+    return result.data;
+}
+
+
+export const updateCategory = async (categoryId: string, category: Category) => {
+    const result = await httpClient.put(`/categories/${categoryId}`, category);
+    return result.data;
+}   
+
+
+
 export const deleteCategory = async (id: string) => {
     const result = await httpClient.delete(`/categories/${id}`);
     return result.data;

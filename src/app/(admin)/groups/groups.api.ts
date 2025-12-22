@@ -31,6 +31,18 @@ export const addGroup = async (group: NewGroup) => {
 }
 
 
+export const getGroupDetails = async (groupId: string) => {
+    const result = await httpClient.get(`/groups/${groupId}`);
+    return result.data;
+}
+
+
+export const updateGroup = async (groupId: string, category: Category) => {
+    const result = await httpClient.put(`/groups/${groupId}`, category);
+    return result.data;
+}   
+
+
 export const deleteGroup = async (id: string) => {
     const result = await httpClient.delete(`/groups/${id}`);
     return result.data;

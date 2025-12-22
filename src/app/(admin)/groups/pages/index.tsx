@@ -57,7 +57,7 @@ const Groups = () => {
                                 <div>
                                     <Button onClick={() => navigate("/groups/create")} variant="success">
                                         <IconifyIcon icon="bx:plus" className="me-1" />
-                                        إضافة فئة
+                                        إضافة مجموعة
                                     </Button>
                                 </div>
                             </div>
@@ -68,10 +68,9 @@ const Groups = () => {
                                     <thead className="bg-light bg-opacity-50">
                                         <tr>
                                             {/* <th className="border-0 py-2">رمز المنتج</th> */}
-                                            <th className="border-0 py-2">صورة القسم</th>
+                                            <th className="border-0 py-2">صورة المجموعة</th>
                                             <th className="border-0 py-2">الإسم</th>
                                             <th className="border-0 py-2">الفئة</th>
-                                            <th className="border-0 py-2">تاريخ الإنشاء</th>
                                             {/* 
                       <th className="border-0 py-2">القسم</th>
                       <th className="border-0 py-2">الفئة</th>
@@ -108,13 +107,13 @@ const Groups = () => {
                                                     </div>
                                                 </td>
 
-                                                <td> {group.createdAt && new Date(group.createdAt).toDateString()}</td>
 
 
                                                 <td>
-                                                    <Button variant="soft-secondary" size="sm" type="button" className="me-2">
+                                                    <Button onClick={() => navigate(`/groups/${group.id || group._id}/edit`)} variant="soft-secondary" size="sm" type="button" className="me-2">
                                                         <IconifyIcon icon="bx:edit" className="fs-16" />
                                                     </Button>
+                                                    &nbsp; &nbsp;
                                                     <Button variant="soft-danger" size="sm" type="button"
                                                         onClick={() => handleDeleteClick(group)}
                                                     >
@@ -164,7 +163,7 @@ const Groups = () => {
 
             <Modal show={!!selectedGroup} onHide={handleCloseModal} className="fade">
                 <ModalHeader>
-                    <Modal.Title>ؤحذف قسم</Modal.Title>
+                    <Modal.Title>تأكيد الحذف</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <p>

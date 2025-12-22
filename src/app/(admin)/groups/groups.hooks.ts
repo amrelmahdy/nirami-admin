@@ -2,7 +2,7 @@
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import { Department } from "../departments/departments.hooks";
 import { Category } from "../categories/categories.hooks";
-import { addGroup, deleteGroup, getGroups } from "./groups.api";
+import { addGroup, deleteGroup, getGroupDetails, getGroups, updateGroup } from "./groups.api";
 
 
 
@@ -48,6 +48,37 @@ export const useAddGroup = () => {
 
     return mutation;
 }
+
+
+
+export const useGetGroup = (id: string): UseQueryResult<Category> => {
+    return useQuery({
+        queryKey: ['group', id],
+        queryFn: () => getGroupDetails(id),
+        enabled: !!id, // optional: prevents the query from running if id is falsy
+    });
+};
+
+
+
+export const useUpdateGroup = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ id, group }: { id: string; group: any }) =>
+            // Call your API for updating the product
+            updateGroup(id, group),
+        onSuccess: (res) => {
+            console.log("Group updated:", res);
+            // Invalidate the cache to refetch the updated product data
+            // queryClient.invalidateQueries({ queryKey: ['brand', res.id] });
+            queryClient.invalidateQueries({ queryKey: ['groups'] });
+        },
+        onError: (error: any) => {
+            console.error('Error updating group:', error?.response?.data || error.message);
+        },
+    });
+};
 
 
 

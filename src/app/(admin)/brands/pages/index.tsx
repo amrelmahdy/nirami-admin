@@ -134,7 +134,7 @@ const Brands = () => {
 
             <Modal show={!!selectedBrand} onHide={handleCloseModal} className="fade">
                 <ModalHeader>
-                    <Modal.Title>حذف علامة</Modal.Title>
+                    <Modal.Title>تأكيدالحذف</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <p>

@@ -4,16 +4,16 @@ export const currency: CurrencyType = 'ريال'
 
 export const currentYear = new Date().getFullYear()
 
-export const developedByLink = 'https://techzaa.getappui.com/'
+export const developedByLink = 'https://www.linkedin.com/in/amr-el-mahdy-5b1983b0/'
 
-export const developedBy = 'Techzaa'
+export const developedBy = 'AMR ELMAHDY'
 
-export const contactUs = 'techzaastudio@gmail.com'
+export const contactUs = 'amrelmhdy@hotmail.com'
 
 export const buyLink = ''
 
 export const basePath = '/'
 
-export const DEFAULT_PAGE_TITLE = 'Rasket React | Responsive Admin Dashboard Template'
+export const DEFAULT_PAGE_TITLE = 'لوحة التحكم - نيرامي'
 
 export const colorVariants = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light', 'link']

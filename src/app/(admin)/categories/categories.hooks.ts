@@ -1,6 +1,6 @@
 
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query"
-import { addCategory, deleteCategory, getCategories } from "./categories.api";
+import { addCategory, deleteCategory, getCategories, getCategoryDetails, updateCategory } from "./categories.api";
 import { Department } from "../departments/departments.hooks";
 
 
@@ -44,6 +44,36 @@ export const useAddCategory = () => {
     return mutation;
 }
 
+
+
+export const useGetCategory = (id: string): UseQueryResult<Category> => {
+    return useQuery({
+        queryKey: ['category', id],
+        queryFn: () => getCategoryDetails(id),
+        enabled: !!id, // optional: prevents the query from running if id is falsy
+    });
+};
+
+
+
+export const useUpdateCategory = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ id, category }: { id: string; category: any }) =>
+            // Call your API for updating the product
+            updateCategory(id, category),
+        onSuccess: (res) => {
+            console.log("Category updated:", res);
+            // Invalidate the cache to refetch the updated product data
+            // queryClient.invalidateQueries({ queryKey: ['brand', res.id] });
+            queryClient.invalidateQueries({ queryKey: ['categories'] });
+        },
+        onError: (error: any) => {
+            console.error('Error updating brand:', error?.response?.data || error.message);
+        },
+    });
+};
 
 
 export const useDeleteCategory = (): UseMutationResult<

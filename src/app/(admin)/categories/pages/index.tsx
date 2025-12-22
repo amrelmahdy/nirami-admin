@@ -1,11 +1,11 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import { Button, Card, CardBody, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
 import PageMetaData from '@/components/PageTitle'
 import IconifyIcon from '@/components/wrappers/IconifyIcon'
 
-import {  useDeleteDepartment } from '../../departments/departments.hooks'
+import { useDeleteDepartment } from '../../departments/departments.hooks'
 import { Category, useDeleteCategory, useGetCategories } from '../categories.hooks'
 
 const Categories = () => {
@@ -48,12 +48,6 @@ const Categories = () => {
                     <Card>
                         <CardBody>
                             <div className="d-flex flex-wrap justify-content-between gap-3">
-                                {/* <div className="search-bar">
-                                    <span>
-                                        <IconifyIcon icon="bx:search-alt" className="mb-1" />
-                                    </span>
-                                    <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
-                                </div> */}
                                 <div>
                                     <Button onClick={() => navigate("/categories/create")} variant="success">
                                         <IconifyIcon icon="bx:plus" className="me-1" />
@@ -68,29 +62,16 @@ const Categories = () => {
                                     <thead className="bg-light bg-opacity-50">
                                         <tr>
                                             {/* <th className="border-0 py-2">رمز المنتج</th> */}
-                                            <th className="border-0 py-2">صورة القسم</th>
-                                            <th className="border-0 py-2">الإسم</th>
+                                            <th className="border-0 py-2">الصورة</th>
+                                            <th className="border-0 py-2">الإسم بالعربية</th>
+                                            <th className="border-0 py-2">الإسم بالإنجحليزية</th>
                                             <th className="border-0 py-2">القسم</th>
-                                            <th className="border-0 py-2">تاريخ الإنشاء</th>
-                                            {/* 
-                      <th className="border-0 py-2">القسم</th>
-                      <th className="border-0 py-2">الفئة</th>
-                      <th className="border-0 py-2">المجموعة</th>
-                      <th className="border-0 py-2">السعر</th>
-                      <th className="border-0 py-2">المخزون</th>
-                      <th className="border-0 py-2"> الحالة</th> */}
                                             <th className="border-0 py-2">إجراء</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {!isError && !isLoading && categoriesList?.map((category: Category, idx) => (
                                             <tr key={idx}>
-                                                {/* <td>
-                          <Link to={`/departments/${department.id}`} className="fw-medium">
-                            #{department.id}
-                          </Link>
-                        </td> */}
-
                                                 <td>
                                                     <img src={category.image} alt="user-img" className="avatar-md rounded-circle me-2" />
                                                 </td>
@@ -100,7 +81,11 @@ const Categories = () => {
                                                         <h5 className="fs-14 mt-1 fw-normal">{category.name?.ar}</h5>
                                                     </div>
                                                 </td>
-
+                                                <td>
+                                                    <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{category.name?.en}</h5>
+                                                    </div>
+                                                </td>
 
                                                 <td>
                                                     <div>
@@ -108,55 +93,25 @@ const Categories = () => {
                                                     </div>
                                                 </td>
 
-                                                <td> {category.createdAt && new Date(category.createdAt).toDateString()}</td>
 
 
                                                 <td>
-                                                    <Button variant="soft-secondary" size="sm" type="button" className="me-2">
+                                                    <Button onClick={() => navigate(`/categories/${category.id || category._id}/edit`)} variant="soft-secondary" size="sm" type="button" className="me-2">
                                                         <IconifyIcon icon="bx:edit" className="fs-16" />
                                                     </Button>
+                                                    &nbsp; &nbsp;
                                                     <Button variant="soft-danger" size="sm" type="button"
                                                         onClick={() => handleDeleteClick(category)}
                                                     >
                                                         <IconifyIcon icon="bx:trash" className="bx bx-trash fs-16" />
                                                     </Button>
                                                 </td>
-                                                {/* 
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {invoice.customer && <img src={invoice.customer.image} alt="user-img" className="avatar-xs rounded-circle me-2" />}
-                            <div>
-                              <h5 className="fs-14 mt-1 fw-normal">{invoice.customer?.name}</h5>
-                            </div>
-                          </div>
-                        </td>
-                        <td>{invoice.customer && new Date(invoice.customer?.createdAt).toDateString()}&nbsp;</td>
-                        <td> {invoice.order && new Date(invoice.order?.createdAt).toDateString()}</td>
-                        <td>
-                          {currency}
-                          {invoice.product?.price}
-                        </td>
-                        <td>
-                          <span
-                            className={`badge badge-soft-${invoice.order?.status === 'Cancelled' ? 'danger' : invoice.order?.status == 'Processing' ? 'warning' : 'success'}`}>
-                            {invoice.order?.status}
-                          </span>
-                        </td>
-                        <td>{invoice.order?.paymentMethod}</td>
-                        <td>
-                          <Button variant="soft-secondary" size="sm" type="button" className="me-2">
-                            <IconifyIcon icon="bx:edit" className="fs-16" />
-                          </Button>
-                          <Button variant="soft-danger" size="sm" type="button">
-                            <IconifyIcon icon="bx:trash" className="bx bx-trash fs-16" />
-                          </Button>
-                        </td> */}
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
                     </Card>
                 </Col>
@@ -165,11 +120,11 @@ const Categories = () => {
 
             <Modal show={!!selectedCategory} onHide={handleCloseModal} className="fade">
                 <ModalHeader>
-                    <Modal.Title>ؤحذف قسم</Modal.Title>
+                    <Modal.Title>تأكيد الحذف</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <p>
-                        تأكيد حذف قسم : <strong>{selectedCategory?.name?.ar}</strong>
+                        تأكيد حذف فئة : <strong>{selectedCategory?.name?.ar}</strong>
                     </p>
                 </ModalBody>
                 <ModalFooter>

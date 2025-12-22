@@ -157,7 +157,7 @@ const Departments = () => {
 
             <Modal show={!!selectedDepartment} onHide={handleCloseModal} className="fade">
                 <ModalHeader>
-                    <Modal.Title>حذف قسم</Modal.Title>
+                    <Modal.Title>تأكيد الحذف</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <p>
