@@ -6,6 +6,7 @@ import Categories from '@/app/(admin)/categories/pages'
 import AddCategory from '@/app/(admin)/categories/pages/add'
 import Departments from '@/app/(admin)/departments/pages'
 import AddDepartment from '@/app/(admin)/departments/pages/add'
+import EditDepartment from '@/app/(admin)/departments/pages/edit'
 import Groups from '@/app/(admin)/groups/pages'
 import AddGroup from '@/app/(admin)/groups/pages/add'
 import Orders from '@/app/(admin)/orders/pages'
@@ -175,7 +176,6 @@ const appsRoutes: RoutesProps[] = [
     path: '/products/:productId/edit',
     element: <EditProduct />,
   },
-
   {
     name: 'Create product',
     path: '/products/create',
@@ -197,7 +197,11 @@ const appsRoutes: RoutesProps[] = [
     path: '/departments/create',
     element: <AddDepartment />,
   },
-
+  {
+    name: 'Edit Department',
+    path: '/departments/:departmentId/edit',
+    element: <EditDepartment />,
+  },
   {
     name: 'Categories List',
     path: '/categories',
@@ -227,8 +231,6 @@ const appsRoutes: RoutesProps[] = [
     path: '/brands/:brandId/edit',
     element: <EditBrand />,
   },
-
-
   {
     name: 'Groups List',
     path: '/groups',
@@ -239,13 +241,11 @@ const appsRoutes: RoutesProps[] = [
     path: '/groups/create',
     element: <AddGroup />,
   },
-
   {
     name: 'Users List',
     path: '/users',
     element: <Users />,
   },
-
   {
     name: 'Admins List',
     path: '/admins',

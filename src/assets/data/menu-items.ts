@@ -44,6 +44,24 @@ export const MENU_ITEMS: MenuItemType[] = [
   //   url: '/apps/todo',
   // },
 
+    {
+    key: 'custom',
+    label: 'Custom',
+    isTitle: true,
+  },
+  {
+    key: 'apps-user',
+    icon: 'solar:users-group-rounded-broken',
+    label: 'قائمة العملاء',
+    url: '/users',
+  },
+  {
+    key: 'apps-admins',
+    icon: 'solar:users-group-rounded-bold',
+    label: 'قائمة المديرين',
+    url: '/admins',
+  },
+  
   {
     key: 'apps',
     label: 'المتجر الالكتروني',
@@ -104,23 +122,7 @@ export const MENU_ITEMS: MenuItemType[] = [
   //   label: 'العروض',
   //   url: '/apps/email',
   // },
-  {
-    key: 'custom',
-    label: 'Custom',
-    isTitle: true,
-  },
-  {
-    key: 'apps-user',
-    icon: 'solar:users-group-rounded-broken',
-    label: 'قائمة العملاء',
-    url: '/users',
-  },
-  {
-    key: 'apps-admins',
-    icon: 'solar:users-group-rounded-bold',
-    label: 'قائمة المديرين',
-    url: '/admins',
-  },
+
   // {
   //   key: 'pages',
   //   label: 'Pages',

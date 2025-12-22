@@ -66,7 +66,7 @@ const Departments = () => {
                                             {/* <th className="border-0 py-2">رمز المنتج</th> */}
                                             <th className="border-0 py-2">صورة القسم</th>
                                             <th className="border-0 py-2">الإسم</th>
-                                            <th className="border-0 py-2">تاريخ الإنشاء</th>
+                                            {/* <th className="border-0 py-2">تاريخ الإنشاء</th> */}
                                             {/* <th className="border-0 py-2">الماركة</th>
                       <th className="border-0 py-2">القسم</th>
                       <th className="border-0 py-2">الفئة</th>
@@ -99,13 +99,14 @@ const Departments = () => {
 
 
 
-                                                <td> {department.createdAt && new Date(department.createdAt).toDateString()}</td>
+                                                {/* <td> {department.createdAt && new Date(department.createdAt).toDateString()}</td> */}
 
 
-                                                <td>
-                                                    <Button variant="soft-secondary" size="sm" type="button" className="me-2">
+                                                <td style={{}}>
+                                                    <Button  onClick={() => navigate(`/departments/${department.id || department._id}/edit`)} variant="soft-secondary" size="sm" type="button" className="me-2">
                                                         <IconifyIcon icon="bx:edit" className="fs-16" />
                                                     </Button>
+                                                    &nbsp; &nbsp;
                                                     <Button variant="soft-danger" size="sm" type="button"
                                                         onClick={() => handleDeleteClick(department)}
                                                     >
@@ -147,44 +148,7 @@ const Departments = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="align-items-center justify-content-between row g-0 text-center text-sm-start p-3 border-top">
-                                <div className="col-sm">
-                                    <div className="text-muted">
-                                        عرض&nbsp;
-                                        <span className="fw-semibold">10</span>&nbsp; من&nbsp;
-                                        <span className="fw-semibold">52</span>&nbsp; منتج
-                                    </div>
-                                </div>
-                                <Col sm="auto" className="mt-3 mt-sm-0">
-                                    <ul className="pagination pagination-rounded m-0">
-                                        <li className="page-item">
-                                            <Link to="" className="page-link">
-                                                <IconifyIcon icon="bx:left-arrow-alt" />
-                                            </Link>
-                                        </li>
-                                        <li className="page-item active">
-                                            <Link to="" className="page-link">
-                                                1
-                                            </Link>
-                                        </li>
-                                        <li className="page-item">
-                                            <Link to="" className="page-link">
-                                                2
-                                            </Link>
-                                        </li>
-                                        <li className="page-item">
-                                            <Link to="" className="page-link">
-                                                3
-                                            </Link>
-                                        </li>
-                                        <li className="page-item">
-                                            <Link to="" className="page-link">
-                                                <IconifyIcon icon="bx:right-arrow-alt" />
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </Col>
-                            </div>
+                            
                         </div>
                     </Card>
                 </Col>
@@ -193,7 +157,7 @@ const Departments = () => {
 
             <Modal show={!!selectedDepartment} onHide={handleCloseModal} className="fade">
                 <ModalHeader>
-                    <Modal.Title>ؤحذف قسم</Modal.Title>
+                    <Modal.Title>حذف قسم</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <p>

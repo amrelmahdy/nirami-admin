@@ -1,8 +1,7 @@
-
 import PageMetaData from '@/components/PageTitle'
 import UIExamplesList from '@/components/UIExamplesList'
 import AllFormValidation from '../../forms/validation/components/AllFormValidation'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { serverSideFormValidate } from '@/helpers/data'
 import { ValidationError } from 'yup'
 import ComponentContainerCard from '@/components/ComponentContainerCard'
@@ -10,14 +9,13 @@ import { Button, Col, Row, Form, FormCheck, FormControl, FormGroup, FormLabel, F
 import Feedback from 'react-bootstrap/esm/Feedback'
 import InputGroupText from 'react-bootstrap/esm/InputGroupText'
 import clsx from 'clsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ChoicesFormInput from '@/components/form/ChoicesFormInput'
 // import { useAddDepartment } from '../categories.hooks'
-import { Department, useGetDepartments } from '../../departments/departments.hooks'
+import { Department, useGetDepartment, useGetDepartments, useUpdateDepartment } from '../../departments/departments.hooks'
 import DropzoneFormInput from '@/components/form/DropzoneFormInput'
 import { uploadCloudImages } from '@/helpers/services'
 import { Category, useGetCategories } from '../../categories/categories.hooks'
-import { useAddGroup } from '../groups.hooks'
 
 type ValidationErrorType = {
     name?: string
@@ -26,18 +24,26 @@ type ValidationErrorType = {
 
 
 
-const AddGroup = () => {
+const EditDepartment = () => {
+
+
+    const { departmentId } = useParams<{ departmentId: string }>();
+
+    const { data: brand, isError, isLoading } = useGetDepartment(departmentId || "")
+
+
 
     const navigate = useNavigate();
 
+
+
     const [serverError, setServerError] = useState("");
 
-    const addGroup = useAddGroup();
-
-    const { data: categoriesList, isError, isLoading } = useGetCategories();
+    const updateBrand = useUpdateDepartment();
 
 
-    const [groupImage, setGroupImage] = useState<File | undefined>(undefined);
+    const [image, setImage] = useState<File | undefined>(undefined);
+
 
     const [validated, setValidated] = useState(false)
 
@@ -47,11 +53,22 @@ const AddGroup = () => {
     // const addDepartment = useAddDepartment();
 
     const [formValue, setFormValue] = useState({
-        arName: '',
-        enName: '',
-        category: ''
+        arName: brand?.name?.ar || '',
+        enName: brand?.name?.en || '',
     })
 
+
+    // Add this effect to sync formValue with brand data
+    useEffect(() => {
+        if (brand) {
+            setFormValue({
+                arName: brand.name?.ar || '',
+                enName: brand.name?.en || '',
+            });
+        }
+    }, [brand]);
+
+    
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
@@ -78,25 +95,28 @@ const AddGroup = () => {
         });
         setFormErrors(allErrors);
 
-        const newGroup: any = {
+        const newBrand: any = {
             name: {
                 ar: formValue.arName,
                 en: formValue.enName
             },
-            category: formValue.category
         }
 
 
-        if (groupImage) {
-            const uploaded = await uploadCloudImages([groupImage], `groups`);
-            newGroup.image = uploaded[0].url;
+        if (image) {
+            const uploaded = await uploadCloudImages([image], `departments/${departmentId}`);
+            if (uploaded.length > 0) {
+                newBrand.image = uploaded[0].url;
+            }
         }
 
-        addGroup.mutate({
-            ...newGroup
+
+        updateBrand.mutate({
+            id: departmentId || "",
+            brand: newBrand 
         }, {
             onSuccess: () => {
-                navigate("/groups")
+                navigate("/departments")
             }, onError: (error) => {
                 setServerError(error.message || "Unknown error")
             }
@@ -107,7 +127,7 @@ const AddGroup = () => {
 
     return (
         <>
-            <PageMetaData title="إضافة مجموعة جديدة" />
+            <PageMetaData title="إضافة علامة تجارية جديدة" />
 
             <Row>
                 <Col xl={9}>
@@ -118,18 +138,26 @@ const AddGroup = () => {
                     }
                     <ComponentContainerCard
                         id="custom-styles"
-                        title="إضافة مجموعة جديدة"
+                        title="تعديل القسم"
                         description={
                             <>
 
                             </>
                         }>
 
-                        {!isError && !isLoading && categoriesList?.length  ? 
+                        {brand && !isLoading &&
                             <Form className="row g-3 needs-validation" noValidate validated={validated} onSubmit={handleSubmit}>
                                 <FormGroup className="col-md-4">
                                     <FormLabel>الإسم العربي</FormLabel>
-                                    <FormControl type="text" id="validationCustom01" name='arName' placeholder="الإسم بالعربي" defaultValue="" required onChange={handleChange} />
+                                    <FormControl
+                                        type="text"
+                                        id="validationCustom01"
+                                        name='arName'
+                                        placeholder="الإسم بالعربي"
+                                        defaultValue={brand?.name?.ar || ""}
+                                        required
+                                        onChange={handleChange}
+                                    />
                                     <Feedback>صحيح</Feedback>
                                     <Feedback type="invalid">
                                         برجاء ادخال الاسم باللغة العربية
@@ -137,61 +165,20 @@ const AddGroup = () => {
                                 </FormGroup>
                                 <FormGroup className="col-md-4">
                                     <FormLabel>الإسم بالإنجليزية</FormLabel>
-                                    <FormControl type="text" id="validationCustom02" name='enName' placeholder="الإسم بالإنجليزية" defaultValue="" required onChange={handleChange} />
+                                    <FormControl
+                                        type="text"
+                                        id="validationCustom02"
+                                        name='enName'
+                                        placeholder="الإسم بالإنجليزية"
+                                        defaultValue={brand?.name?.en || ""}
+                                        required
+                                        onChange={handleChange}
+                                    />
                                     <Feedback>صحيح</Feedback>
                                     <Feedback type="invalid">
                                         برجاء ادخال الاسم باللغة الإنجليزية
                                     </Feedback>
                                 </FormGroup>
-
-                                
-
-                                <Col lg={8}>
-
-                                
-                                    <Form.Select onChange={(e) => {
-                                        setFormValue({ ...formValue, category: e.target.value as string })
-                                    }} aria-label="Default select example">
-                                        <option value="">اختار الفئة</option>
-                                        {categoriesList?.map((category: Category, idx) => (
-                                            <option key={idx} value={category.id}>
-                                                {category.name.ar}
-                                                &nbsp;
-                                                ({category.department.name.ar})
-                                            </option>
-                                        ))}
-                                    </Form.Select>
-
-
-
-                                    {/* <select>
-                                        <option value="">اختار القسم</option>
-
-                                        {departmentsList?.map((department: Department, idx) => (
-
-                                            <option key={idx} value={department.id}>
-                                                {department.name.ar}
-                                            </option>
-                                        ))}
-                                    </select> */}
-
-                                    {/* <ChoicesFormInput onChange={(val) => {
-                                        console.log("formValue", categoryImage)
-                                        //setFormValue({ ...formValue, department: val as string })
-                                    }}>
-                                        <option value="">اختار القسم</option>
-
-                                        {departmentsList?.map((department: Department, idx) => (
-
-                                            <option key={idx} value={department.id}>
-                                                {department.name.ar}
-                                            </option>
-                                        ))}
-
-                                    </ChoicesFormInput> */}
-                                </Col>
-
-
                                 <Col xs={8}>
                                     <DropzoneFormInput
                                         iconProps={{ icon: 'bx:cloud-upload', height: 36, width: 36 }}
@@ -204,22 +191,23 @@ const AddGroup = () => {
                                         maxFiles={1}
                                         showPreview
                                         onFileUpload={async (files) => {
-                                            setGroupImage(files[0])
+                                            setImage(files[0])
                                         }}
                                         onRemoveFile={(_index) => {
                                             //categoryImage?.splice(index, 1)
-                                            setGroupImage(undefined)
+                                            //setGroupImage(undefined)
                                         }}
                                     />
                                 </Col>
 
+{/* disabled={formValue.arName === "" || formValue.enName === ""}  */}
 
                                 <Col xs={12}>
-                                    <Button disabled={formValue.arName === "" || formValue.enName === "" || formValue.category === ""} variant="primary" className="width-xl" type="submit">
+                                    <Button variant="primary" className="width-xl" type="submit">
                                         حفظ
                                     </Button>
                                 </Col>
-                            </Form> : <p>لا يوجد فئات متاحة. برجاء إضافة فئة أولاً.</p>
+                            </Form>
                         }
                     </ComponentContainerCard>
                 </Col>
@@ -228,4 +216,4 @@ const AddGroup = () => {
     )
 }
 
-export default AddGroup
+export default EditDepartment;

@@ -26,6 +26,6 @@ export const updateBrand = async (brandId: string, brand: Brand) => {
 
 
 export const deletebrand = async (id: string) => {
-    const result = await httpClient.delete(`/categories/${id}`);
+    const result = await httpClient.delete(`/brands/${id}`);
     return result.data;
 }
