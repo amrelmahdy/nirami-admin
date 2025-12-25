@@ -18,7 +18,7 @@ const TopNavigationBar = () => {
           <div className="d-flex align-items-center gap-2">
             <LeftSideBarToggle />
 
-            <SearchBox />
+            {/* <SearchBox /> */}
           </div>
           <div className="d-flex align-items-center gap-1">
             {/* Toggle Theme Mode */}
@@ -30,12 +30,12 @@ const TopNavigationBar = () => {
             </Suspense>
 
             {/* Notification Dropdown */}
-            <Suspense>
+            {/* <Suspense>
               <Notifications />
-            </Suspense>
+            </Suspense> */}
 
             {/* Toggle for Theme Customizer */}
-            <ThemeCustomizerToggle />
+            {/* <ThemeCustomizerToggle /> */}
 
             {/* Admin Profile Dropdown */}
             <ProfileDropdown />

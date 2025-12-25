@@ -73,24 +73,19 @@ const AddDepartment = () => {
 
 
         if (departmentImage) {
-
-            setIsLoading(true);
-
             const uploaded = await uploadCloudImages([departmentImage], `departments`);
             newDepartment.image = uploaded[0].url;
-
-            addDepartment.mutate(newDepartment, {
-                onSuccess: () => {
-                    navigate("/departments")
-                }, onError: (error) => {
-                    console.log("error", navigate)
-                    setServerError(error.message || "Unknown error")
-                }
-            });
-
-        } else {
-            setIsLoading(false);
         }
+
+
+        addDepartment.mutate(newDepartment, {
+            onSuccess: () => {
+                navigate("/departments")
+            }, onError: (error) => {
+                console.log("error", navigate)
+                setServerError(error.message || "Unknown error")
+            }
+        });
 
     }
 
@@ -99,25 +94,14 @@ const AddDepartment = () => {
     return (
         <>
             <PageMetaData title="إضافة قسم" />
-
-
-
-
             <Row>
-
-
                 <Col xl={9}>
-
-
                     {
                         serverError !== "" && <Alert variant="danger" role="alert">
                             {serverError}
                         </Alert>
                     }
-
-
                     {
-
                         isLoading ?
                             <div className="mb-3 d-flex align-items-center" style={{ justifyContent: "center" }}>
                                 <Spinner />

@@ -12,10 +12,12 @@ import Groups from '@/app/(admin)/groups/pages'
 import AddGroup from '@/app/(admin)/groups/pages/add'
 import EditGroup from '@/app/(admin)/groups/pages/edit'
 import Orders from '@/app/(admin)/orders/pages'
+import OrderDetails from '@/app/(admin)/orders/pages/details'
 import Products from '@/app/(admin)/products/pages'
 import AddProduct from '@/app/(admin)/products/pages/add'
 import ProductDetail from '@/app/(admin)/products/pages/details'
 import EditProduct from '@/app/(admin)/products/pages/edit'
+import Settings from '@/app/(admin)/settings/pages'
 import Users from '@/app/(admin)/users/pages'
 import { lazy } from 'react'
 import { Navigate, type RouteProps } from 'react-router-dom'
@@ -345,6 +347,11 @@ const appsRoutes: RoutesProps[] = [
     element: <Orders />,
   },
   {
+    name: 'Order Details',
+    path: '/orders/:orderId',
+    element: <OrderDetails />,
+  },
+  {
     name: 'Invoices Details',
     path: '/invoices',
     element: <Invoices />,
@@ -354,6 +361,13 @@ const appsRoutes: RoutesProps[] = [
     path: '/invoices/:invoiceId',
     element: <InvoiceDetails />,
   },
+
+ {
+    name: 'Content Settings',
+    path: '/settings',
+    element: <Settings />,
+  },
+
 ]
 
 const customRoutes: RoutesProps[] = [

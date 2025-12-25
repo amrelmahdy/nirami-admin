@@ -8,6 +8,8 @@ import IconifyIcon from '@/components/wrappers/IconifyIcon'
 import { Group, useDeleteGroup, useGetGroups } from '../../groups/groups.hooks'
 import { useGetCategories } from '../../categories/categories.hooks'
 import { Order, useGetOrdres } from '../orders.hooks'
+import moment  from 'moment';
+
 
 const Orders = () => {
 
@@ -129,7 +131,7 @@ const Orders = () => {
                         </td> */}
 
                                                 <td>
-                                                    <Link to={`/products/${order?.orderNumber}`} className="fw-medium">
+                                                    <Link to={`/orders/${order?.orderNumber}`} className="fw-medium">
                                                         #{order?.orderNumber}
                                                     </Link>
                                                 </td>
@@ -162,13 +164,13 @@ const Orders = () => {
 
                                                 <td>
                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{order?.createdAt}</h5>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{moment(order.createdAt).format('DD MMM YYYY, HH:mm')}</h5>
                                                     </div>
                                                 </td>
 
                                                 <td>
                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{order?.updatedAt}</h5>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{moment(order.updatedAt).locale('ar_SA').fromNow()}</h5>
                                                     </div>
                                                 </td>
 

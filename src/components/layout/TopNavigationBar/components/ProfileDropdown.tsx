@@ -23,7 +23,7 @@ const ProfileDropdown = () => {
         </span>
       </DropdownToggle>
       <DropdownMenu>
-        <DropdownHeader as="h6">Welcome Gaston!</DropdownHeader>
+        {/* <DropdownHeader as="h6">Welcome Gaston!</DropdownHeader>
         <DropdownItem as={Link} to="/apps/chat">
           <IconifyIcon icon="bx:message-dots" className="text-muted fs-18 align-middle me-1" />
           <span className="align-middle">Messages</span>
@@ -40,7 +40,7 @@ const ProfileDropdown = () => {
           <IconifyIcon icon="bx:lock" className="text-muted fs-18 align-middle me-1" />
           <span className="align-middle">Lock screen</span>
         </DropdownItem>
-        <DropdownDivider className="dropdown-divider my-1" />
+        <DropdownDivider className="dropdown-divider my-1" /> */}
         <DropdownItem as={Link} onClick={removeSession} className="text-danger" to="/auth/sign-in">
           <IconifyIcon icon="bx:log-out" className="fs-18 align-middle me-1" />
           <span className="align-middle">Logout</span>
