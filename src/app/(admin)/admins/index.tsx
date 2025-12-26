@@ -56,9 +56,9 @@ const Admins = () => {
                                         <tr>
                                             <th className="border-0 py-2">الإسم</th>
                                             <th className="border-0 py-2">رقم الجوال</th>
-                                            <th className="border-0 py-2">النوع</th>
-                                            <th className="border-0 py-2">تاريخ الميلاد</th>
-                                            <th className="border-0 py-2">بروفايل مكتمل</th>
+                                            <th className="border-0 py-2">الإيميل</th>
+                                            {/* <th className="border-0 py-2">تاريخ الميلاد</th> */}
+                                            {/* <th className="border-0 py-2">بروفايل مكتمل</th> */}
                                         </tr>
                                     </thead>
 
@@ -82,20 +82,25 @@ const Admins = () => {
                                                 </td>
                                                  <td>
                                                      <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{user.gender}</h5>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.email}</h5>
                                                     </div>
                                                 </td>
-                                                 <td>
+                                                 {/* <td>
+                                                     <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.gender}</h5>
+                                                    </div>
+                                                </td> */}
+                                                 {/* <td>
                                                      <div>
                                                         <h5 className="fs-14 mt-1 fw-normal">{user.dateOfBirth}</h5>
                                                     </div>
-                                                </td>
+                                                </td> */}
 
-                                                 <td>
+                                                 {/* <td>
                                                      <div>
                                                         <h5 className="fs-14 mt-1 fw-normal">{user.isProfileCompleted ? 'نعم' : 'لا'}</h5>
                                                     </div>
-                                                </td>
+                                                </td> */}
 
                                                 {/* <td>
                                                     <img src={brand.image} alt="user-img" className="avatar-md rounded-circle me-2" />

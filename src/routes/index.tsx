@@ -18,6 +18,8 @@ import AddProduct from '@/app/(admin)/products/pages/add'
 import ProductDetail from '@/app/(admin)/products/pages/details'
 import EditProduct from '@/app/(admin)/products/pages/edit'
 import Settings from '@/app/(admin)/settings/pages'
+import Tickets from '@/app/(admin)/tickets/pages'
+import TicketDetails from '@/app/(admin)/tickets/pages/details'
 import Users from '@/app/(admin)/users/pages'
 import { lazy } from 'react'
 import { Navigate, type RouteProps } from 'react-router-dom'
@@ -350,6 +352,17 @@ const appsRoutes: RoutesProps[] = [
     name: 'Order Details',
     path: '/orders/:orderId',
     element: <OrderDetails />,
+  },
+
+    {
+    name: 'Tickets List',
+    path: '/tickets',
+    element: <Tickets />,
+  },
+  {
+    name: 'Ticket Details',
+    path: '/tickets/:ticketId',
+    element: <TicketDetails />,
   },
   {
     name: 'Invoices Details',

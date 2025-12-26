@@ -71,28 +71,28 @@ const Users = () => {
 
 
                                                 <td>
-                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{`${user.firstName} ${user.lastName}`}</h5>
+                                                    <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : "_"}</h5>
                                                     </div>
                                                 </td>
-                                                 <td>
-                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{user.phone}</h5>
+                                                <td>
+                                                    <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.phone ? user.phone : "_"}</h5>
                                                     </div>
                                                 </td>
-                                                 <td>
-                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{user.gender}</h5>
+                                                <td>
+                                                    <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.gender ? user.gender : "_"}</h5>
                                                     </div>
                                                 </td>
-                                                 <td>
-                                                     <div>
-                                                        <h5 className="fs-14 mt-1 fw-normal">{user.dateOfBirth}</h5>
+                                                <td>
+                                                    <div>
+                                                        <h5 className="fs-14 mt-1 fw-normal">{user.dateOfBirth ? user.dateOfBirth : "_"}</h5>
                                                     </div>
                                                 </td>
 
-                                                 <td>
-                                                     <div>
+                                                <td>
+                                                    <div>
                                                         <h5 className="fs-14 mt-1 fw-normal">{user.isProfileCompleted ? 'نعم' : 'لا'}</h5>
                                                     </div>
                                                 </td>
