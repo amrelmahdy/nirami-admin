@@ -60,7 +60,7 @@ export const useUpdateOrder = () => {
             // Call your API for updating the product
             updateOrder(id, order),
         onSuccess: (res) => {
-            console.log("Group updated:", res);
+            console.log("Order updated:", res);
             // Invalidate the cache to refetch the updated product data
             // queryClient.invalidateQueries({ queryKey: ['brand', res.id] });
             queryClient.invalidateQueries({ queryKey: ['orders'] });

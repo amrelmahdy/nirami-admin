@@ -1,7 +1,7 @@
 
 import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query"
 import { User } from "../users/users.hooks";
-import { getTicketDetails, getTickets } from "./tickets.api";
+import { getTicketDetails, getTickets, updateTicket } from "./tickets.api";
 
 
 export type OrderStatus =
@@ -38,8 +38,25 @@ export type Order = {
 }
 
 
+export type Ticket = {
+    name: string
+    phone: string
+    email: string
+    type: "complaint" | "return" | "exchange" | "other";
+    message: string;
+    orderNumber: string;
+    createdAt: string;
+    updatedAt: string;
+    status: "created" | "processing" | "completed" | "closed";
+    ticketNumber: string;
+    user: User;
+    _id: string;
+}
 
-export const useGetTickets = (): UseQueryResult<Order[]> => {
+
+
+
+export const useGetTickets = (): UseQueryResult<Ticket[]> => {
     const query = useQuery({
         queryKey: ['tickets'], // cache based on filters
         queryFn: getTickets,
@@ -52,9 +69,30 @@ export const useGetTickets = (): UseQueryResult<Order[]> => {
 
 
 
+export const useUpdateTicket = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ id, ticket }: { id: string; ticket: any }) =>
+            // Call your API for updating the product
+            updateTicket(id, ticket),
+        onSuccess: (res) => {
+            console.log("Ticket updated:", res);
+            // Invalidate the cache to refetch the updated product data
+            // queryClient.invalidateQueries({ queryKey: ['brand', res.id] });
+            queryClient.invalidateQueries({ queryKey: ['tickets'] });
+        },
+        onError: (error: any) => {
+            console.error('Error updating ticket:', error?.response?.data || error.message);
+        },
+    });
+};
 
 
-export const useGetTicketDetails = (id: string): UseQueryResult<Order> => {
+
+
+
+export const useGetTicketDetails = (id: string): UseQueryResult<Ticket> => {
     const query = useQuery({
         queryKey: ['order', id],
         queryFn: () => getTicketDetails(id),

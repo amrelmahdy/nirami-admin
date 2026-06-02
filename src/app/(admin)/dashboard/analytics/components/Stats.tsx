@@ -3,8 +3,23 @@ import { Card, CardBody, CardFooter, Col, Row } from 'react-bootstrap'
 import { statData } from '../data'
 import type { StatType } from '../types'
 import { Link } from 'react-router-dom'
+import { useGetProducts } from '@/app/(admin)/products/products.hooks'
+import { useGetOrdres } from '@/app/(admin)/orders/orders.hooks'
+
+
+
+
+
 
 const StatCard = ({ change, icon, stat, title, variant }: StatType) => {
+
+
+  // const { data, isError, isLoading } = useGetProducts({ onlyParents: true });
+  // const { data: ordersList, isOrdersError, isOrdersLoading } = useGetOrdres();
+  // const { data: ordersList, isOrdersError, isOrdersLoading } = useGetOrdres();
+  // const { data: ordersList, isOrdersError, isOrdersLoading } = useGetOrdres();
+
+
   return (
     <Card>
       <CardBody>

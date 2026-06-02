@@ -25,7 +25,7 @@ export type User = {
 
 };
 
-export const useGetUsers = (type?: UserRole) => {
+export const useGetUsers = (type?: string | undefined) => {
     const query =  useQuery({
         queryKey: ['users', type],
         queryFn: () => getUsers(type)

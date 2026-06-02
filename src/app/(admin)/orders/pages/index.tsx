@@ -9,6 +9,7 @@ import { Group, useDeleteGroup, useGetGroups } from '../../groups/groups.hooks'
 import { useGetCategories } from '../../categories/categories.hooks'
 import { Order, useGetOrdres } from '../orders.hooks'
 import moment  from 'moment';
+import { getOrderStatusBadge } from '@/helpers/data'
 
 
 const Orders = () => {
@@ -43,33 +44,7 @@ const Orders = () => {
     };
 
 
-    const getOrderStatusBadge = (status: string) => {
-        switch (status) {
-            case 'pending':
-                return `badge badge-soft-warning`;
-            case 'awaiting_payment':
-                return 'badge badge-soft-info';
-            case 'payment_failed':
-                return 'badge badge-soft-danger';
-            case 'processing':
-                return 'badge badge-soft-primary';
-            case 'on_hold':
-                return 'badge badge-soft-secondary';
-            case 'ready_for_pickup':
-                return 'badge badge-soft-success';
-            case 'shipped':
-                return 'badge badge-soft-success';
-            case 'delivered':
-                return 'badge badge-soft-success';
-            case 'completed':
-                return 'badge badge-soft-success';
-            case 'cancelled':
-                return 'badge badge-soft-danger';
-            default:
-                return 'badge badge-soft-secondary';
-        }
-    }
-
+    
 
 
 

@@ -11,19 +11,19 @@ export default function Home() {
       <PageMetaData title="Analytics" />
 
       <Stats />
-      <Row>
+      {/* <Row>
         <Col>
           <Conversions />
         </Col>
-      </Row>
-      <Row>
+      </Row> */}
+      {/* <Row>
         <Col lg={6}>
           <SessionByBrowser />
         </Col>
         <Col lg={6}>
           <TopPages />
         </Col>
-      </Row>
+      </Row> */}
     </>
   )
 }

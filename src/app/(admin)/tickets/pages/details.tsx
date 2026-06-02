@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Card, CardBody, CardTitle, Col, Form, Row, Spinner } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
-
-import { getInvoiceById } from '@/helpers/data'
-import { currency } from '@/context/constants'
+import { getTicketStatus, getTicketType } from '@/helpers/data'
 import PageMetaData from '@/components/PageTitle'
 import type { InvoiceType } from '@/types/data'
-
-import logoDark from '@/assets/images/logo-dark-full.png'
-import logoLight from '@/assets/images/logo-light-full.png'
-import { useGetOrderDetails, useUpdateOrder } from '../../orders/orders.hooks'
-import { useGetTicketDetails } from '../tickets.hooks'
+import { useGetTicketDetails, useUpdateTicket } from '../tickets.hooks'
 import moment from 'moment'
 
 const TicketDetails = () => {
@@ -20,35 +14,7 @@ const TicketDetails = () => {
 
     const { data: ticket, isError, isLoading, refetch, isRefetching } = useGetTicketDetails(ticketId || "")
 
-    const updateOrder = useUpdateOrder();
-
-
-
-    useEffect(() => {
-        // ;(async () => {
-        //   if (orderId) {
-        //     const data = await getInvoiceById(orderId)
-        //     if (data) setInvoice(data)
-        //     else navigate('/pages/error-404-alt')
-        //   }
-        // })()
-    }, [])
-
-
-
-
-     const getTicketType = (status: string) => {
-        switch (status) {
-            case 'complaint':
-                return "شكوي";
-            case 'inquiry':
-                return 'إستفسار';
-            case 'return_or_exchange':
-                return 'طلب إرجاع أو إستبدال';
-            default:
-                return 'شكوي';
-        }
-    }
+    const updateTicket = useUpdateTicket();
 
     return (
         <>
@@ -99,9 +65,9 @@ const TicketDetails = () => {
 
                                         <Form.Select onChange={(e) => {
                                             console.log("changed", e.target.value);
-                                            updateOrder.mutate({
-                                                id: ticket.id || "",
-                                                order: { status: e.target.value }
+                                            updateTicket.mutate({
+                                                id: ticket._id || "",
+                                                ticket: { status: e.target.value }
                                             }, {
                                                 onSuccess: () => {
                                                     refetch();
@@ -114,10 +80,10 @@ const TicketDetails = () => {
 
                                         }} aria-label="Default select example">
                                             <option value="">حالة التذكرة</option>
-                                            <option selected={ticket.status === "created"} value="created">تم الإنشاء</option>
-                                            <option selected={ticket.status === "processing"} value="processing">جاري العمل عليها</option>
-                                            <option selected={ticket.status === "completed"} value="completed">تمت</option>
-                                            <option selected={ticket.status === "closed"} value="closed">مغلق</option>
+                                            <option selected={ticket.status === "created"} value="created">{getTicketStatus("created")}</option>
+                                            <option selected={ticket.status === "processing"} value="processing">{getTicketStatus("processing")}</option>
+                                            <option selected={ticket.status === "completed"} value="completed">{getTicketStatus("completed")}</option>
+                                            <option selected={ticket.status === "closed"} value="closed">{getTicketStatus("closed")}</option>
                                         </Form.Select>
 
 
@@ -141,31 +107,12 @@ const TicketDetails = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     <tr>
                                                         <td>{ticket.orderNumber}</td>
                                                         <td>{getTicketType(ticket.type)}</td>
                                                         <td>{moment(ticket.createdAt).format('DD MMM YYYY, HH:mm')}</td>
-                                                         <td>{moment(ticket.updatedAt).format('DD MMM YYYY, HH:mm')}</td>
-                                                        {/* <td>{item.quantity}</td>
-                                                        <td>{item.unitPrice.toFixed(2)} {currency}</td>
-                                                        <td className="text-end">{(item.unitPrice * item.quantity).toFixed(2)} {currency}</td> */}
-
+                                                        <td>{moment(ticket.updatedAt).format('DD MMM YYYY, HH:mm')}</td>
                                                     </tr>
-
-                                                    {/* {order.items.map((item, index) => (
-                                                        <tr key={index}>
-                                                            <td>{item.product.name.ar}</td>
-                                                            <td>{item.quantity}</td>
-                                                            <td>{item.unitPrice.toFixed(2)} {currency}</td>
-                                                            <td className="text-end">{(item.unitPrice * item.quantity).toFixed(2)} {currency}</td>
-                                                          
-                                                        </tr>
-                                                    ))} */}
-
-
-
-
                                                 </tbody>
                                             </table>
                                         </div>
@@ -178,35 +125,6 @@ const TicketDetails = () => {
                                             <p>الرسالة : </p>
                                             <p>{ticket.message}</p>
                                         </div>
-                                        {/* <div className="float-end">
-                                            <p>
-                                                <span className="float-end">المجموع الجزئي : </span>
-                                                <span className="fw-medium">
-                                                    {order.totalPrice} {currency}
-                                                </span>
-
-                                            </p>
-                                            <p>
-                                                <span className="float-end"> التوصيل : </span>
-                                                <span className="fw-medium">
-                                                    {order?.shippingCost} {currency}
-                                                </span>
-
-                                            </p>
-                                            {order?.discount &&
-                                                <p>
-                                                    <span className="fw-medium">الخصم</span>
-                                                    <span className="float-end">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        {order?.discount?.value}
-                                                    </span>
-                                                </p>
-                                            }
-                                            <h3>
-                                                الإجمالي :
-                                                {order?.finalPrice} {currency} </h3>
-                                        </div>
-                                        <div className="clearfix" /> */}
                                     </Col>
                                 </Row>
                             </CardBody>

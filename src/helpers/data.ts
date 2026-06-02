@@ -282,3 +282,85 @@ export const serverSideFormValidate = async (data: unknown): Promise<unknown> =>
     return error
   }
 }
+
+
+
+
+export const getTicketStatus = (status: string) => {
+  switch (status) {
+    case 'created':
+      return "تم الإنشاء";
+    case 'processing':
+      return 'قيد المعالجة';
+    case 'completed':
+      return 'مكتمل';
+    case 'closed':
+      return 'مغلق';
+    default:
+      return 'غير معروف';
+  }
+}
+
+
+
+
+export const getTicketType = (status: string) => {
+  switch (status) {
+    case 'complaint':
+      return "شكوي";
+    case 'inquiry':
+      return 'إستفسار';
+    case 'return_or_exchange':
+      return 'طلب إرجاع أو إستبدال';
+    default:
+      return 'شكوي';
+  }
+}
+
+
+
+
+export const getTicketStatusBadge = (status: string) => {
+  switch (status) {
+    case 'created':
+      return `badge badge-soft-warning`;
+    case 'processing':
+      return 'badge badge-soft-primary';
+    case 'completed':
+      return 'badge badge-soft-success';
+    case 'closed':
+      return 'badge badge-soft-danger';
+    default:
+      return 'badge badge-soft-secondary';
+  }
+}
+
+export const getOrderStatusBadge = (status: string) => {
+  switch (status) {
+    case 'pending':
+      return `badge badge-soft-warning`;
+    case 'awaiting_payment':
+      return 'badge badge-soft-info';
+    case 'payment_failed':
+      return 'badge badge-soft-danger';
+    case 'processing':
+      return 'badge badge-soft-primary';
+    case 'on_hold':
+      return 'badge badge-soft-secondary';
+    case 'ready_for_pickup':
+      return 'badge badge-soft-success';
+    case 'shipped':
+      return 'badge badge-soft-success';
+    case 'delivered':
+      return 'badge badge-soft-success';
+    case 'completed':
+      return 'badge badge-soft-success';
+    case 'cancelled':
+      return 'badge badge-soft-danger';
+    default:
+      return 'badge badge-soft-secondary';
+  }
+}
+
+
+

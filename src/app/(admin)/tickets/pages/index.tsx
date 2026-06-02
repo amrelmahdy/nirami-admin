@@ -11,6 +11,7 @@ import { Order, useGetOrdres } from '../orders.hooks'
 import moment from 'moment';
 import { useGetTickets } from '../tickets.hooks'
 import { get } from 'http'
+import { getTicketStatus, getTicketStatusBadge, getTicketType } from '@/helpers/data'
 
 
 
@@ -48,36 +49,8 @@ const Tickets = () => {
     };
 
 
-    const getTicketStatusBadge = (status: string) => {
-        switch (status) {
-            case 'created':
-                return `badge badge-soft-warning`;
-            case 'processing':
-                return 'badge badge-soft-info';
-            case 'completed':
-                return 'badge badge-soft-success';
-            case 'closed':
-                return 'badge badge-soft-danger';
-            default:
-                return 'badge badge-soft-secondary';
-        }
-    }
 
 
-
-
-     const getTicketType = (status: string) => {
-        switch (status) {
-            case 'complaint':
-                return "شكوي";
-            case 'inquiry':
-                return 'إستفسار';
-            case 'return_or_exchange':
-                return 'طلب إرجاع أو إستبدال';
-            default:
-                return 'شكوي';
-        }
-    }
 
 
 
@@ -156,7 +129,7 @@ const Tickets = () => {
                                                 <td>
                                                     <span
                                                         className={getTicketStatusBadge(ticket.status)}>
-                                                        {ticket?.status}
+                                                        { getTicketStatus(ticket?.status)}
                                                     </span>
                                                 </td>
 
