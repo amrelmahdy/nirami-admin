@@ -1,11 +1,11 @@
 import type { MenuItemType } from '@/types/menu'
 
 export const MENU_ITEMS: MenuItemType[] = [
-  {
-    key: 'menu',
-    label: 'MENU',
-    isTitle: true,
-  },
+  // {
+  //   key: 'menu',
+  //   label: 'MENU',
+  //   isTitle: true,
+  // },
   {
     key: 'dashboard',
     icon: 'solar:home-2-broken',
@@ -44,11 +44,11 @@ export const MENU_ITEMS: MenuItemType[] = [
   //   url: '/apps/todo',
   // },
 
-    {
-    key: 'custom',
-    label: 'Custom',
-    isTitle: true,
-  },
+  //   {
+  //   key: 'custom',
+  //   label: 'Custom',
+  //   isTitle: true,
+  // },
   {
     key: 'apps-user',
     icon: 'solar:users-group-rounded-broken',
@@ -61,55 +61,92 @@ export const MENU_ITEMS: MenuItemType[] = [
     label: 'قائمة المديرين',
     url: '/admins',
   },
-  
+  // {
+  //   key: 'apps',
+  //   icon: 'solar:users-group-rounded-broken',
+
+  //   label: 'المتجر الالكتروني',
+  //   isTitle: true,
+  // },
+
   {
-    key: 'apps',
-    label: 'المتجر الالكتروني',
-    isTitle: true,
-  },
-  {
-    key: 'apps-products',
-    icon: 'line-md:grid-3',
+    key: 'products',
+    icon: 'solar:users-group-rounded-broken',
+
     label: 'المنتجات',
-    children: [
-      {
-        key: 'products',
-        label: 'المنتجات',
-        url: '/products',
-        parentKey: 'apps-products',
-      },
-      {
-        key: 'departments',
-        label: 'الأقسام',
-        url: '/departments',
-        parentKey: 'apps-products',
-      },
-      {
-        key: 'categories',
-        label: 'الفئات',
-        url: '/categories',
-        parentKey: 'apps-products',
-      },
-      {
-        key: 'groups',
-        label: 'المجموعات',
-        url: '/groups',
-        parentKey: 'apps-products',
-      },
-       {
-        key: 'brands',
-        label: 'العلامات التجارية',
-        url: '/brands',
-        parentKey: 'apps-products',
-      },
-      // {
-      //   key: 'invoices-details',
-      //   label: 'المجموعات',
-      //   url: '/invoices/RB6985',
-      //   parentKey: 'apps-invoices',
-      // },
-    ],
+    url: '/products',
   },
+  {
+    key: 'departments',
+    icon: 'solar:users-group-rounded-broken',
+
+    label: 'الأقسام',
+    url: '/departments',
+  },
+  {
+    key: 'categories',
+    icon: 'solar:users-group-rounded-broken',
+
+    label: 'الفئات',
+    url: '/categories',
+  },
+  {
+    key: 'groups',
+    icon: 'solar:users-group-rounded-broken',
+
+    label: 'المجموعات',
+    url: '/groups',
+  },
+  {
+    key: 'brands',
+    icon: 'solar:users-group-rounded-broken',
+    label: 'العلامات التجارية',
+    url: '/brands',
+
+  },
+  // {
+  //   key: 'apps-products',
+  //   icon: 'line-md:grid-3',
+  //   label: 'المنتجات',
+  //   children: [
+  // {
+  //   key: 'products',
+  //   label: 'المنتجات',
+  //   url: '/products',
+  //   parentKey: 'apps-products',
+  // },
+  // {
+  //   key: 'departments',
+  //   label: 'الأقسام',
+  //   url: '/departments',
+  //   parentKey: 'apps-products',
+  // },
+  // {
+  //   key: 'categories',
+  //   label: 'الفئات',
+  //   url: '/categories',
+  //   parentKey: 'apps-products',
+  // },
+  // {
+  //   key: 'groups',
+  //   label: 'المجموعات',
+  //   url: '/groups',
+  //   parentKey: 'apps-products',
+  // },
+  //  {
+  //   key: 'brands',
+  //   label: 'العلامات التجارية',
+  //   url: '/brands',
+  //   parentKey: 'apps-products',
+  // },
+  // {
+  //   key: 'invoices-details',
+  //   label: 'المجموعات',
+  //   url: '/invoices/RB6985',
+  //   parentKey: 'apps-invoices',
+  // },
+  //   ],
+  // },
   {
     key: 'apps-orders',
     icon: 'solar:cart-3-outline',
@@ -120,13 +157,13 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: 'badge-settings',
     icon: 'solar:football-broken',
     label: 'ظبط محتوي التطبيق',
-     url: '/settings',
+    url: '/settings',
   },
-   {
+  {
     key: 'badge-tickets',
     icon: 'solar:folder-with-files-broken',
     label: 'التذاكر',
-     url: '/tickets',
+    url: '/tickets',
   },
   // {
   //   key: 'apps-email',

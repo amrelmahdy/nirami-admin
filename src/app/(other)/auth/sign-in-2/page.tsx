@@ -49,32 +49,32 @@ const SignIn2 = () => {
       <Col xl={5} className="mx-auto">
         <Card className="auth-card">
           <CardBody className="px-3 py-5">
-            <LogoBox
+            {/* <LogoBox
               textLogo={{
                 height: 24,
                 width: 110,
               }}
               squareLogo={{ className: 'me-2', width: 33, height: 28 }}
               containerClassName="mx-auto mb-4 text-center auth-logo"
-            />
+            /> */}
             <h2 className="fw-bold text-center fs-18">تسجيل الدخول</h2>
-            <p className="text-muted text-center mt-1 mb-4">الدخول الي لوحة التحكم</p>
+            <p className="text-muted text-center mt-1 mb-4">الدخول الي لوحة تحكم نيرامى</p>
             <div className="px-4">
               <FormGroup className="col-md-12">
-                <FormLabel>الإسم بالإنجليزية</FormLabel>
-                <FormControl type="text" id="validationCustom02" name='enName' placeholder="الإسم بالإنجليزية" defaultValue="" required onChange={(e) => setUsername(e.target.value)} />
+                <FormLabel>إسم المستخدم</FormLabel>
+                <FormControl type="text" id="validationCustom02" name='enName' placeholder="إسم المستخدم" defaultValue="" required onChange={(e) => setUsername(e.target.value)} />
                 <Feedback>صحيح</Feedback>
                 <Feedback type="invalid">
-                  برجاء ادخال الاسم باللغة الإنجليزية
+                  برجاء ادخال إسم المستخدم 
                 </Feedback>
               </FormGroup>
 
               <FormGroup className="col-md-12">
-                <FormLabel>الإسم بالإنجليزية</FormLabel>
-                <FormControl type="password" id="validationCustom02" name='enName' placeholder="الإسم بالإنجليزية" defaultValue="" required onChange={(e) => setPassword(e.target.value)} />
+                <FormLabel>كلمة المرور</FormLabel>
+                <FormControl type="password" id="validationCustom02" name='enName' placeholder="كلمة المرور" defaultValue="" required onChange={(e) => setPassword(e.target.value)} />
                 <Feedback>صحيح</Feedback>
                 <Feedback type="invalid">
-                  برجاء ادخال الاسم باللغة الإنجليزية
+                  برجاءادخال كلمة المرور
                 </Feedback>
               </FormGroup>
               <div className="mb-3" />
