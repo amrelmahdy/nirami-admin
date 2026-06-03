@@ -71,35 +71,35 @@ export const MENU_ITEMS: MenuItemType[] = [
 
   {
     key: 'products',
-    icon: 'solar:users-group-rounded-broken',
+    icon: 'solar:shop-broken',
 
     label: 'المنتجات',
     url: '/products',
   },
   {
     key: 'departments',
-    icon: 'solar:users-group-rounded-broken',
+    icon: 'solar:shop-minimalistic-broken',
 
     label: 'الأقسام',
     url: '/departments',
   },
   {
     key: 'categories',
-    icon: 'solar:users-group-rounded-broken',
+    icon: 'solar:cart-2-broken',
 
     label: 'الفئات',
     url: '/categories',
   },
   {
     key: 'groups',
-    icon: 'solar:users-group-rounded-broken',
+    icon: 'solar:bag-3-broken',
 
     label: 'المجموعات',
     url: '/groups',
   },
   {
     key: 'brands',
-    icon: 'solar:users-group-rounded-broken',
+    icon: 'solar:chart-square-broken',
     label: 'العلامات التجارية',
     url: '/brands',
 
@@ -155,7 +155,7 @@ export const MENU_ITEMS: MenuItemType[] = [
   },
   {
     key: 'badge-settings',
-    icon: 'solar:football-broken',
+    icon: 'solar:text-square-broken',
     label: 'ظبط محتوي التطبيق',
     url: '/settings',
   },
