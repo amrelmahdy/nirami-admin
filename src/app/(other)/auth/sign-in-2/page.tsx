@@ -62,7 +62,7 @@ const SignIn2 = () => {
             <div className="px-4">
               <FormGroup className="col-md-12">
                 <FormLabel>إسم المستخدم</FormLabel>
-                <FormControl type="text" id="validationCustom02" name='enName' placeholder="إسم المستخدم" defaultValue="" required onChange={(e) => setUsername(e.target.value)} />
+                <FormControl type="text" id="validationCustom02" name='username' placeholder="إسم المستخدم" defaultValue="" required onChange={(e) => setUsername(e.target.value)} />
                 <Feedback>صحيح</Feedback>
                 <Feedback type="invalid">
                   برجاء ادخال إسم المستخدم 
@@ -71,7 +71,7 @@ const SignIn2 = () => {
 
               <FormGroup className="col-md-12">
                 <FormLabel>كلمة المرور</FormLabel>
-                <FormControl type="password" id="validationCustom02" name='enName' placeholder="كلمة المرور" defaultValue="" required onChange={(e) => setPassword(e.target.value)} />
+                <FormControl type="password" id="validationCustom02" name='password' placeholder="كلمة المرور" defaultValue="" required onChange={(e) => setPassword(e.target.value)} />
                 <Feedback>صحيح</Feedback>
                 <Feedback type="invalid">
                   برجاءادخال كلمة المرور

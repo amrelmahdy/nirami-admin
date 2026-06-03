@@ -41,12 +41,12 @@ const Admins = () => {
                                     </span>
                                     <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
                                 </div> */}
-                                <div>
+                                {/* <div>
                                     <Button onClick={() => navigate("/brands/create")} variant="success">
                                         <IconifyIcon icon="bx:plus" className="me-1" />
                                         إضافة مدير  
                                     </Button>
-                                </div>
+                                </div> */}
                             </div>
                         </CardBody>
                         <div>
