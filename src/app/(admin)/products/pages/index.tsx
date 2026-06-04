@@ -8,6 +8,7 @@ import { currency } from '@/context/constants'
 import { getAllInvoices } from '@/helpers/data'
 import type { InvoiceType } from '@/types/data'
 import { Product, useGetProducts } from './../products.hooks'
+import moment from "moment/min/moment-with-locales";
 
 const Products = () => {
   const { data, isError, isLoading } = useGetProducts({ onlyParents: true });
@@ -58,8 +59,9 @@ const Products = () => {
                       <th className="border-0 py-2">المجموعة</th>
                       <th className="border-0 py-2">السعر</th>
                       <th className="border-0 py-2">المخزون</th>
-                      <th className="border-0 py-2"> الحالة</th>
-                      <th className="border-0 py-2">Action</th>
+                      <th className="border-0 py-2"> تاريخ الإنشاء</th>
+                      <th className="border-0 py-2"> آخر تحديث</th>
+                      <th className="border-0 py-2">تحكم</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,7 +112,8 @@ const Products = () => {
                           {product?.stock}
                         </td>
 
-                        <td> {product.createdAt && new Date(product.createdAt).toDateString()}</td>
+                        <td> {product.createdAt && moment(product.createdAt).locale("ar").format("DD - MMM - YYYY")}</td>
+                        <td> {product.updatedAt && moment(product.updatedAt).locale("ar").format("DD - MMM - YYYY")}</td>
 
                         <td>
                           <Button onClick={() => navigate(`/products/${product.id || product._id}/edit`)} variant="soft-secondary" size="sm" type="button" className="me-2">
