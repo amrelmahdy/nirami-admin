@@ -211,7 +211,7 @@ const Orders = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="align-items-center justify-content-between row g-0 text-center text-sm-start p-3 border-top">
+                            {/* <div className="align-items-center justify-content-between row g-0 text-center text-sm-start p-3 border-top">
                                 <div className="col-sm">
                                     <div className="text-muted">
                                         عرض&nbsp;
@@ -248,7 +248,7 @@ const Orders = () => {
                                         </li>
                                     </ul>
                                 </Col>
-                            </div>
+                            </div> */}
                         </div>
                     </Card>
                 </Col>

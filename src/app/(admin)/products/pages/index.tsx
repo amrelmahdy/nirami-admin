@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Button, Card, CardBody, Col, Row, Spinner } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 
 import PageMetaData from '@/components/PageTitle'
 import IconifyIcon from '@/components/wrappers/IconifyIcon'
 import { currency } from '@/context/constants'
-import { getAllInvoices } from '@/helpers/data'
-import type { InvoiceType } from '@/types/data'
 import { Product, useGetProducts } from './../products.hooks'
 import moment from "moment/min/moment-with-locales";
 
@@ -24,25 +21,25 @@ const Products = () => {
     <>
       <PageMetaData title="المنتجات" />
 
-      
-
       <Row>
         <Col>
           <Card>
             <CardBody>
               <div className="d-flex flex-wrap justify-content-between gap-3">
-                <div className="search-bar">
-                  <span>
-                    <IconifyIcon icon="bx:search-alt" className="mb-1" />
-                  </span>
-                  <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
-                </div>
                 <div>
                   <Button onClick={() => navigate("/products/create")} variant="success">
                     <IconifyIcon icon="bx:plus" className="me-1" />
                     إضافة منتج
                   </Button>
                 </div>
+
+                <div className="search-bar">
+                  <span>
+                    <IconifyIcon icon="bx:search-alt" className="mb-1" />
+                  </span>
+                  <input type="search" className="form-control" id="search" placeholder="البحث في المنتجات ..." />
+                </div>
+
               </div>
             </CardBody>
             <div>
@@ -120,7 +117,7 @@ const Products = () => {
                             <IconifyIcon icon="bx:edit" className="fs-16" />
                           </Button>
                           <Button variant="soft-danger" size="sm" type="button"
-                            onClick={() => {}}
+                            onClick={() => { }}
                           >
                             <IconifyIcon icon="bx:trash" className="bx bx-trash fs-16" />
                           </Button>
@@ -160,7 +157,7 @@ const Products = () => {
                   </tbody>
                 </table>
               </div>
-              <div className="align-items-center justify-content-between row g-0 text-center text-sm-start p-3 border-top">
+              {/* <div className="align-items-center justify-content-between row g-0 text-center text-sm-start p-3 border-top">
                 <div className="col-sm">
                   <div className="text-muted">
                     عرض&nbsp;
@@ -197,7 +194,7 @@ const Products = () => {
                     </li>
                   </ul>
                 </Col>
-              </div>
+              </div> */}
             </div>
           </Card>
         </Col>
